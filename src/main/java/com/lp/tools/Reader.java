@@ -1,0 +1,53 @@
+package com.lp.tools;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Reader {
+    private static File text;
+
+    private static CodeList codeList;
+
+    public static CodeList getCodes() throws IOException{
+        if(codeList == null){
+            readCodes();
+        }
+        return codeList;
+    }
+
+    private static void readCodes() throws IOException{
+        File text = new File("src/main/java/com/lp/tools/codes.txt");
+        BufferedReader reader = new BufferedReader(new FileReader(text));
+        String st;
+        while( (st = reader.readLine()) != null){
+            Code newcode = new Code(st.substring(0,st.indexOf(' ')).trim() , st.substring(st.indexOf(' '),st.length()).trim());
+            addCode(newcode);
+        }
+        reader.close();
+    }
+
+    private static void addCode(Code nc){
+        CodeList temp1, temp2;
+
+        if(codeList == null){
+            temp1 = new CodeList(nc,null);
+            codeList = temp1;
+        } else {
+            for(temp1 = codeList; temp1.getNext() != null; temp1 = temp1.getNext());
+            temp2 = new CodeList(nc, null);
+            temp1.setNext(temp2);
+        }
+    }
+
+    public static BufferedReader getReader(String name) throws IOException{
+        String dest = "src/main/java/com/lp/";
+        if(text != null){
+            text = null;
+        }
+        text = new File(dest+name);
+        BufferedReader reader = new BufferedReader(new FileReader(text));
+        return reader;
+    }
+}
