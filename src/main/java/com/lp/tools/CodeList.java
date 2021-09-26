@@ -47,7 +47,12 @@ public class CodeList {
 
     @Override
     public String toString(){
-        return "| "+this.code.getLetter()+" | "+this.code.getCode()+"  \n" + (isEmpty(this.getNext()) ? "" : this.getNext());
+        return "| "
+                +this.code.getLetter()
+                +" | "
+                +this.code.getCode()
+                +"  \n" 
+                + (isEmpty(this.getNext()) ? "" : this.getNext());
     }
 }
 

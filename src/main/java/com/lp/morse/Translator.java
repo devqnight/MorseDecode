@@ -2,6 +2,7 @@ package com.lp.morse;
 
 import java.io.IOException;
 
+import com.lp.exceptions.MorseBusinessException;
 import com.lp.tools.CodeList;
 import com.lp.tools.Reader;
 
@@ -23,13 +24,13 @@ public class Translator {
         return instance;
     } 
 
-    public String toText(String data){
+    public String toText(String data) throws MorseBusinessException{
         String result="";
         result = TranslateToText.toText(this.codes, this.tree, data);
         return result;
     }
 
-    public String toMorse(String data){
+    public String toMorse(String data) throws MorseBusinessException{
         String result="";
         result = TranslateToMorse.toMorse(this.codes, data);
         return result;

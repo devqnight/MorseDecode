@@ -1,10 +1,11 @@
 package com.lp.morse;
 
+import com.lp.exceptions.MorseBusinessException;
 import com.lp.tools.CodeList;
 
 public class TranslateToMorse {
 
-    public static String toMorse(CodeList codes, String original){
+    public static String toMorse(CodeList codes, String original) throws MorseBusinessException{
         String morse = "";
         for(int i=0;i<original.length();i++) {
             if(original.charAt(i) == ' ' && i != 0){
@@ -16,7 +17,7 @@ public class TranslateToMorse {
                 if( (res=codes.isIn(String.valueOf(original.charAt(i)).toUpperCase())) != ""){
                     morse += res + " ";
                 } else {
-                    morse += "? ";
+                    throw new MorseBusinessException("Character " + original.charAt(i) + " does not exist in the morse code...");
                 }
             }
         }

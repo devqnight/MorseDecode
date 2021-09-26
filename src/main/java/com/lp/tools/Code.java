@@ -4,9 +4,9 @@ public class Code {
     private String code;
     private String letter;
 
-    public Code(String c, String l){
-        this.letter = c;
-        this.code = l;
+    public Code(String l, String c){
+        this.letter = l;
+        this.code = c;
     }
 
     public String getCode() {
@@ -27,7 +27,7 @@ public class Code {
 
     @Override
     public String toString(){
-        return this.getCode() + " => " + this.getLetter();
+        return this.getLetter() + " => " + this.getCode();
     }
 
 }
