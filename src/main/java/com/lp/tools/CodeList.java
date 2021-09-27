@@ -22,7 +22,7 @@ public class CodeList {
             return this.code.getCode();
         } else {
             if(isEmpty(this.next)){
-                return "";
+                return ""; //possibly throw an exception here
             }
             return this.next.isIn(searched);
         }
@@ -33,6 +33,9 @@ public class CodeList {
         if(code.equals(this.code.getCode())){
             return this.code.getLetter();
         } else {
+            if(isEmpty(this.next)){
+                return ""; //possibly throw an exception here
+            }
             return this.next.deCode(code);
         }
     }

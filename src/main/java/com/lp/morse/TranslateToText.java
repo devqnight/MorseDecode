@@ -2,10 +2,9 @@ package com.lp.morse;
 
 
 import com.lp.exceptions.MorseBusinessException;
-import com.lp.tools.CodeList;
 
 public class TranslateToText {
-    public static String toText(CodeList codes, MorseNode tree,String morse) throws MorseBusinessException{
+    public static String toText(MorseNode tree,String morse) throws MorseBusinessException{
         String text ="";
 
         String[] words = morse.split(" ");
@@ -13,6 +12,8 @@ public class TranslateToText {
         for(String word : words){
             if(word.equals("/")){
                 text += " ";
+            } else if(word.charAt(0) == '\n'){
+                text += "\n ";
             } else {
                 text += toChar(tree, word, 0);
             }

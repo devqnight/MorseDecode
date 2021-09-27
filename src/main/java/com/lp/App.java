@@ -3,6 +3,8 @@ package com.lp;
 import com.lp.dao.enums.ETypeDao;
 import com.lp.dao.factory.DaoFactory;
 import com.lp.dao.io.DaoMorse;
+import com.lp.morse.MorseNode;
+import com.lp.morse.MorseTree;
 import com.lp.morse.Translator;
 
 //import com.lp.tools.Reader;
@@ -14,8 +16,10 @@ public class App {
             /* Reader rd = new Reader();
 
             System.out.println(rd.getCodes()); */
-            Translator tl = new Translator();
-            String msg = "hello world";
+            Translator tl = Translator.getTranslator();
+            /* MorseNode tree = MorseTree.getTree();
+            tree.displayTree(); */
+            String msg = "hello \n world";
             msg = msg.toUpperCase();
             String resultMorse = tl.toMorse(msg);
             System.out.println(msg + " = " + resultMorse);

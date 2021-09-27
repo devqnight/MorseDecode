@@ -26,7 +26,7 @@ public class Translator {
 
     public String toText(String data) throws MorseBusinessException{
         String result="";
-        result = TranslateToText.toText(this.codes, this.tree, data);
+        result = TranslateToText.toText(this.tree, data);
         return result;
     }
 
