@@ -17,13 +17,14 @@ import java.net.URL;
 
 //import com.lp.tools.Reader;
 
-public class App /*extends Application*/ {
+public class App extends Application {
 
-/*    @Override
+    @Override
     public void start(Stage primaryStage){
         try {
 
-            final URL fxmlURL = getClass().getResource("/main/java/com/lp/view/morseView.fxml");
+            final URL fxmlURL = getClass().getResource("morseView.fxml");
+            System.out.println(fxmlURL);
             final FXMLLoader fxmlLoader = new FXMLLoader(fxmlURL);
             final VBox node = (VBox)fxmlLoader.load();
             Scene scene = new Scene(node);
@@ -37,10 +38,11 @@ public class App /*extends Application*/ {
         } catch(Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     public static void main(String[] args) {
         try {
+            launch(args);
             /* Reader rd = new Reader();
 
             System.out.println(rd.getCodes()); */
