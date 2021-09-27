@@ -19,7 +19,7 @@ public class App {
             Translator tl = Translator.getTranslator();
             /* MorseNode tree = MorseTree.getTree();
             tree.displayTree(); */
-            String msg = "hello \n world";
+            String msg = "hello world";
             msg = msg.toUpperCase();
             String resultMorse = tl.toMorse(msg);
             System.out.println(msg + " = " + resultMorse);

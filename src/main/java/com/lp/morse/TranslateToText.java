@@ -10,10 +10,12 @@ public class TranslateToText {
         String[] words = morse.split(" ");
 
         for(String word : words){
+            if(word.charAt(0) == '\n'){
+                text += "\n";
+                word = word.substring(1,word.length());
+            }
             if(word.equals("/")){
                 text += " ";
-            } else if(word.charAt(0) == '\n'){
-                text += "\n ";
             } else {
                 text += toChar(tree, word, 0);
             }
