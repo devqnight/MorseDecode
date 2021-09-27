@@ -2,7 +2,6 @@ package com.lp.morse;
 
 import java.io.IOException;
 
-import com.lp.exceptions.MorseBusinessException;
 import com.lp.tools.Code;
 
 import org.junit.After;
