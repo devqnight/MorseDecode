@@ -13,30 +13,12 @@ public class TestTranslator {
 
     @Before
     public void initTestTranslator() throws IOException{
-        this.testTranslator = Translator.getTranslator();
+        testTranslator = Translator.getTranslator();
     }
 
     @Test
     public void testGetTranslator() throws IOException{
         Assert.assertNotNull(Translator.getTranslator());
-    }
-
-    @Test
-    public void testToTextHelloWorld() throws MorseBusinessException{
-        Assert
-            .assertEquals(
-                testTranslator
-                    .toText(".... . .-.. .-.. --- / .-- --- .-. .-.. -..")
-                    , "HELLO WORLD");
-    }
-
-    @Test(expected = MorseBusinessException.class)
-    public void testToTextHelloWorldFail() throws MorseBusinessException{
-        Assert
-            .assertEquals(
-                testTranslator
-                    .toText(".?... . .-.. .-.. --- / .-- --- .-. .-.. -..")
-                    , "HELLO WORLD");
     }
 
     @Test
@@ -55,5 +37,23 @@ public class TestTranslator {
                 testTranslator
                     .toMorse("HELLO WORLD!")
                     , ".... . .-.. .-.. --- / .-- --- .-. .-.. -..");
+    }
+
+    @Test
+    public void testToTextHelloWorld() throws MorseBusinessException{
+        Assert
+            .assertEquals(
+                testTranslator
+                    .toText(".... . .-.. .-.. --- / .-- --- .-. .-.. -..")
+                    , "HELLO WORLD");
+    }
+
+    @Test(expected = MorseBusinessException.class)
+    public void testToTextHelloWorldFail() throws MorseBusinessException{
+        Assert
+            .assertEquals(
+                testTranslator
+                    .toText(".?... . .-.. .-.. --- / .-- --- .-. .-.. -..")
+                    , "HELLO WORLD");
     }
 }

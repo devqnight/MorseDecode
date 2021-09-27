@@ -2,8 +2,10 @@ package com.lp.morse;
 
 import java.io.IOException;
 
+import com.lp.exceptions.MorseBusinessException;
 import com.lp.tools.Code;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +15,9 @@ public class TestMorseObjects {
 
     @Before
     public void initTestMorseObjects() throws IOException{
-        this.testTree = MorseTree.getTree();
+        this.testTree = (MorseNode) MorseTree.getTree();
     }
+
 
     /**
      * MorseTree TESTS
@@ -77,5 +80,11 @@ public class TestMorseObjects {
         MorseNode testNode = new MorseNode();
         testNode.setMorseCode("A",".-");
         Assert.assertEquals(testNode.getMorseCode().toString(), new Code("A",".-").toString());
+    }
+
+
+    @After
+    public void trashTestMorseObjects() throws IOException{
+        MorseTree.createTree();
     }
 }

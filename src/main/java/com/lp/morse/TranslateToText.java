@@ -12,7 +12,7 @@ public class TranslateToText {
         for(String word : words){
             if(word.charAt(0) == '\n'){
                 text += "\n";
-                word = word.substring(1,word.length());
+                word = word.substring(1,word.length()-1);
             }
             if(word.equals("/")){
                 text += " ";
@@ -27,7 +27,11 @@ public class TranslateToText {
         if(index == word.length()){
             return tree.getLetter();
         } else if(word.charAt(index) == '.'){
-            return toChar(tree.getLeft(), word, index+1);
+            try {
+                return toChar(tree.getLeft(), word, index+1);
+            } catch (Exception e) {
+                throw new MorseBusinessException("\n"+e + "error : " +" left :"+tree+" , word :"+word+" , index : "+index);
+            }
         } else if(word.charAt(index) == '-'){
             return toChar(tree.getRight(), word, index+1);
         } else {
