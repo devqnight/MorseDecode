@@ -1,5 +1,7 @@
 package com.lp.tools;
 
+import com.lp.exceptions.MorseBusinessException;
+
 public class CodeList {
     private Code code;
     private CodeList next;
@@ -17,12 +19,40 @@ public class CodeList {
         return next;
     }
 
+    public void addCode(Code code){
+        if(this.getNext() == null){
+            this.setNext(new CodeList(code, null));
+        } else {
+            this.getNext().addCode(code);
+        }
+    }
+
+    public void addCode(String c, String l){
+        if(this.getNext() == null){
+            this.setNext(new CodeList(new Code(l, c),null));
+        } else {
+            this.getNext().addCode(c,l);
+        }
+    }
+
+    public void deleteCode(String el) throws MorseBusinessException{
+        if(this.getNext() == null){
+            throw new MorseBusinessException("element "+el+" does not exist in the code list...");
+        }
+        if(this.getNext().getCode().getCode().equals(el) || this.getNext().getCode().getLetter().equals(el)){
+            this.setNext(this.getNext().getNext());
+            return;
+        } else {
+            this.getNext().deleteCode(el);
+        }
+    }
+
     public String isIn(String searched){
         if(searched.equals(this.code.getLetter())){
             return this.code.getCode();
         } else {
             if(isEmpty(this.next)){
-                return ""; //possibly throw an exception here
+                return "(/)"; //possibly throw an exception here
             }
             return this.next.isIn(searched);
         }

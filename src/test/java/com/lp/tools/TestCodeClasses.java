@@ -2,6 +2,9 @@ package com.lp.tools;
 
 import java.io.IOException;
 
+import com.lp.exceptions.MorseBusinessException;
+
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +60,9 @@ public class TestCodeClasses {
      * TEST FOR CODELIST CLASS
      */
     @Test 
-    public void testDecode(){
+    public void testDecode() throws IOException{
+        this.testList = null;
+        this.testList = Reader.getCodes();
         Assert.assertEquals(this.testList.deCode(".-"), "A");
         Assert.assertEquals(this.testList.deCode("-..."), "B");
         Assert.assertEquals(this.testList.deCode("-.-."), "C");
@@ -130,5 +135,22 @@ public class TestCodeClasses {
         Code testCode = new Code("A", ".-");
         CodeList test = new CodeList(testCode, null);
         Assert.assertEquals(test.toString(), "| "+testCode.getLetter()+" | "+testCode.getCode() +"  \n" +"");
+    }
+
+    @Test
+    public void testDeleteElement() throws MorseBusinessException{
+        testList.addCode(new Code("0","---."));
+        testList.deleteCode("0");
+        Assert.assertEquals("(/)",testList.isIn("0"));
+    }
+
+    @Test(expected = MorseBusinessException.class)
+    public void testDeleteElementFail() throws MorseBusinessException{
+        testList.deleteCode("/");
+    }
+
+    @After
+    public void destroy(){
+        this.testList = null;
     }
 }
