@@ -27,13 +27,13 @@ public class TranslateToText {
         if(index == word.length()){
             return tree.getLetter();
         } else if(word.charAt(index) == '.'){
-            if(tree.getLeft() == null) throw new MorseBusinessException("Word "+word+" does not exist in the morse code...");
+            if(tree.getLeft() == null) throw new MorseBusinessException(word);
             return toChar(tree.getLeft(), word, index+1);
         } else if(word.charAt(index) == '-'){
-            if(tree.getRight() == null) throw new MorseBusinessException("Word "+word+" does not exist in the morse code...");
+            if(tree.getRight() == null) throw new MorseBusinessException(word);
             return toChar(tree.getRight(), word, index+1);
         } else {
-            throw new MorseBusinessException("Character " + word.charAt(index) + " does not exist in the morse code...");
+            throw new MorseBusinessException(String.valueOf(word.charAt(index)));
         }
     }
 }

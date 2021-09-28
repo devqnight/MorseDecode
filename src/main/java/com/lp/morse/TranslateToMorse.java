@@ -17,7 +17,7 @@ public class TranslateToMorse {
                 if( (res=codes.isIn(String.valueOf(original.charAt(i)).toUpperCase())) != "(/)"){
                     morse += res + " ";
                 } else {
-                    throw new MorseBusinessException("Character " + original.charAt(i) + " does not exist in the morse code...");
+                    throw new MorseBusinessException(String.valueOf(original.charAt(i)));
                 }
             }
         }

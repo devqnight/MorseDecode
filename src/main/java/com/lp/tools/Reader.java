@@ -42,7 +42,7 @@ public class Reader {
     }
 
     public static BufferedReader getReader(String name) throws IOException{
-        String dest = "src/main/java/com/lp/";
+        String dest = "";
         if(text != null){
             text = null;
         }

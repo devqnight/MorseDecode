@@ -1,9 +1,6 @@
 package com.lp;
 
 import com.lp.controller.CtrlMorse;
-import com.lp.morse.Translator;
-import com.lp.tools.CodeList;
-import com.lp.tools.Reader;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -27,8 +24,8 @@ public class App extends Application {
             Node node = fxmlLoader.load();
             Scene scene = new Scene((VBox) node);
             primaryStage.setScene(scene);
-            primaryStage.setX(100);
-            primaryStage.setY(100);
+            //primaryStage.setX(100);
+            //primaryStage.setY(100);
             primaryStage.setTitle("Morse Translator");
             CtrlMorse controller = (CtrlMorse)fxmlLoader.getController();
             controller.setVue(primaryStage);
@@ -40,10 +37,7 @@ public class App extends Application {
 
     public static void main(String[] args) {
         try {
-            //launch(args);
-            
-
-        
+            launch(args);
         } catch(Exception ioe){
             ioe.printStackTrace();
             System.out.println(ioe + " : "+ ioe.getMessage());

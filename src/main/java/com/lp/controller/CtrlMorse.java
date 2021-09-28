@@ -9,18 +9,22 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CtrlMorse implements Initializable, ChangeListener<String> {
 
     private Stage vue;
-    //private Etudiant modele;
 
     @FXML
     private TextArea txtToTranslate;
@@ -36,6 +40,14 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
     private Button btnClear;
     @FXML
     private Button btnSave;
+    @FXML
+    private Button btnOpenFile;
+    @FXML
+    private Button btnAddCode;
+
+    private String pendingCode;
+
+    final FileChooser fileChooser = new FileChooser();
 
     @Override
     public void changed(ObservableValue<? extends String> observableValue, String t, String t1) {
@@ -64,6 +76,7 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
         this.txtToTranslate.setText("");
         this.txtTranslated.setText("");
         this.lblWritingWarning.setText("");
+        this.disableBtnAddCode();
     }
 
     /* public void onClickTranslate() {
@@ -128,7 +141,10 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
                     break;
             }
         } catch (Exception e) {
-            result = e.getMessage();
+            this.pendingCode = e.getMessage();
+            result = (pendingCode.length()>1 ? "word ":"character ") +pendingCode+ " does not exist in morse code...";
+            this.btnAddCode.setDisable(false);
+            this.btnAddCode.setOpacity(100);
         }
         
         this.txtTranslated.setText(result);
@@ -150,11 +166,68 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
             lblWritingWarning.setText("Save completed !");
         } catch (MorseDaoException e) {
             lblWritingWarning.setText(e.getMessage());
-            return;
         } catch (IOException e) {
             lblWritingWarning.setText(e.getMessage());
-            return;
         }
+    }
+
+    public void onClickOpenFileChooser() throws IOException{
+        File file = fileChooser.showOpenDialog(this.vue);
+        if(file != null){
+            try {
+                DaoMorse dao = (DaoMorse) DaoFactory.getDaoFactory(ETypeDao.IO).getDaoMorse();
+                this.txtToTranslate.setText(dao.getTextFromFile(file.getPath()));
+            } catch (Exception e) {
+                lblWritingWarning.setText(e.getMessage());
+            }
+        }
+    }
+
+    public void onClickAddCode(){
+        Dialog<Pair<String, String>> dialog = new Dialog<>();
+        dialog.setTitle("Add code");
+        dialog.setHeaderText("Add a "+(this.pendingCode.length()>1?"character":"code")+" for this "+(this.pendingCode.length()>1?"code":"character")+" : "+this.pendingCode);
+
+        ButtonType saveCodeBtn = new ButtonType("Add Code");
+        dialog.getDialogPane().getButtonTypes().addAll(saveCodeBtn,ButtonType.CANCEL);
+
+        GridPane grid = new GridPane();
+        grid.setHgap(10);
+        grid.setVgap(10);
+        grid.setPadding(new Insets(20,150,10,10));
+
+        TextField letter = new TextField();
+        letter.setPromptText("Letter");
+        TextField code = new TextField();
+        code.setPromptText("Code");
+
+        grid.add(new Label("Letter: "), 0, 0);
+        grid.add(letter, 1, 0);
+        grid.add(new Label("Code: "), 0, 1);
+        grid.add(code, 1, 1);
+
+        /* if(){
+
+        } */
+
+        dialog.getDialogPane().setContent(grid);
+
+        /* if(){
+
+        } */
+
+        dialog.setResultConverter(dialogButton -> {
+            if(dialogButton == saveCodeBtn){
+                return new Pair<>(letter.getText(),code.getText());
+            }
+            return null;
+        });
+
+        Optional<Pair<String,String>> result = dialog.showAndWait();
+    }
+
+    private void disableBtnAddCode(){
+        this.btnAddCode.setDisable(true);
     }
 
     public void manageTextInput() {
