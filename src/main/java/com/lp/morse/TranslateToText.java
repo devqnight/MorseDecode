@@ -12,7 +12,7 @@ public class TranslateToText {
         for(String word : words){
             if(word.charAt(0) == '\n'){
                 text += "\n";
-                word = word.substring(1,word.length()-1);
+                word = word.substring(1,word.length());
             }
             if(word.equals("/")){
                 text += " ";
@@ -27,12 +27,10 @@ public class TranslateToText {
         if(index == word.length()){
             return tree.getLetter();
         } else if(word.charAt(index) == '.'){
-            try {
-                return toChar(tree.getLeft(), word, index+1);
-            } catch (Exception e) {
-                throw new MorseBusinessException("\n"+e + "error : " +" left :"+tree+" , word :"+word+" , index : "+index);
-            }
+            if(tree.getLeft() == null) throw new MorseBusinessException("Word "+word+" does not exist in the morse code...");
+            return toChar(tree.getLeft(), word, index+1);
         } else if(word.charAt(index) == '-'){
+            if(tree.getRight() == null) throw new MorseBusinessException("Word "+word+" does not exist in the morse code...");
             return toChar(tree.getRight(), word, index+1);
         } else {
             throw new MorseBusinessException("Character " + word.charAt(index) + " does not exist in the morse code...");

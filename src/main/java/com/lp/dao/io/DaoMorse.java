@@ -1,9 +1,11 @@
 package com.lp.dao.io;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.lp.exceptions.MorseDaoException;
 import com.lp.interfaces.IDaoMorse;
 import com.lp.tools.Reader;
 
@@ -34,8 +36,9 @@ public class DaoMorse implements IDaoMorse{
         return sb;
     }
 
-    public String writeTextToFile(String name, String file) throws IOException{
+    public String writeTextToFile(String name, String file) throws IOException, MorseDaoException{
         String dest = "translations/"+name;
+        
         FileWriter myWriter = new FileWriter(dest);
         myWriter.write(file);
         myWriter.close();
