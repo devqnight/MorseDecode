@@ -9,6 +9,7 @@ import com.lp.morse.MorseTree;
 import com.lp.morse.Translator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -23,17 +24,16 @@ public class App extends Application {
     public void start(Stage primaryStage){
         try {
 
-            final URL fxmlURL = getClass().getResource("morseView.fxml");
-            System.out.println(fxmlURL);
+            final URL fxmlURL = getClass().getResource("/view/morseView.fxml");
             final FXMLLoader fxmlLoader = new FXMLLoader(fxmlURL);
-            final VBox node = (VBox)fxmlLoader.load();
-            Scene scene = new Scene(node);
+            Node node = fxmlLoader.load();
+            Scene scene = new Scene((VBox) node);
+            primaryStage.setScene(scene);
             primaryStage.setX(100);
             primaryStage.setY(100);
-
             primaryStage.setTitle("Morse Translator");
-            primaryStage.setScene(scene);
-            ((CtrlMorse)fxmlLoader.getController()).setVue(primaryStage);
+            CtrlMorse controller = (CtrlMorse)fxmlLoader.getController();
+            controller.setVue(primaryStage);
             primaryStage.show();
         } catch(Exception e) {
             e.printStackTrace();
