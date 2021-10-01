@@ -1,7 +1,5 @@
 package com.lp;
 
-import com.lp.controller.CtrlMorse;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,6 +8,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
+
+import com.lp.controller.facade.CtrlMorse;
 
 //import com.lp.tools.Reader;
 
