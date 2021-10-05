@@ -107,11 +107,13 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
                 throw new MorseDaoException("File "+fileName+" already exists...");
             }
             dao.writeTextToFile(fileName,this.txtTranslated.getText());
-            lblWritingWarning.setText("Save completed !");
             lblWritingWarning.setTextFill(Color.GREEN);
+            lblWritingWarning.setText("Save completed !");
         } catch (MorseDaoException e) {
+            lblWritingWarning.setTextFill(Color.RED);
             lblWritingWarning.setText(e.getMessage());
         } catch (IOException e) {
+            lblWritingWarning.setTextFill(Color.RED);
             lblWritingWarning.setText(e.getMessage());
         }
     }
@@ -123,8 +125,8 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
                 DaoMorse dao = (DaoMorse) DaoFactory.getDaoFactory(ETypeDao.IO).getDaoMorse();
                 this.txtToTranslate.setText(dao.getTextFromFile(file.getPath()));
             } catch (Exception e) {
-                lblWritingWarning.setText(e.getMessage());
                 lblWritingWarning.setTextFill(Color.RED);
+                lblWritingWarning.setText(e.getMessage());
             }
         }
     }

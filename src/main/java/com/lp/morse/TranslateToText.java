@@ -10,10 +10,9 @@ public class TranslateToText {
         String[] words = morse.split(" ");
 
         for(String word : words){
-            if(word.charAt(0) == '\n'){
-                text += "\n";
-                word = word.substring(1,word.length());
-            }
+            String[] res = newLineChar(word, text);
+            word = res[0];
+            text = res [1];
             if(word.equals("/")){
                 text += " ";
             } else {
@@ -21,6 +20,16 @@ public class TranslateToText {
             }
         }
         return text.trim();
+    }
+
+    private static String[] newLineChar(String word, String text){
+        while(word.charAt(0)=='\n'){
+            System.out.println("has \\n");
+            text += "\n";
+            word = word.substring(1, word.length());
+        }
+        String[] res =  {word, text};
+        return res;
     }
 
     private static String toChar(MorseNode tree, String word, int index) throws MorseBusinessException{
