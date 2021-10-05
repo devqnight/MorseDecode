@@ -10,6 +10,8 @@ arbre de conversion binaire morse vers alphabet
 
 # TO-DO
 
+add color for errors in translated zone
+
 refactoring des listeners
 
 option de traduction automatique lors de l'ouvertur d'un fichier
