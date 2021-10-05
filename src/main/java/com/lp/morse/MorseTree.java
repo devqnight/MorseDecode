@@ -21,14 +21,16 @@ public class MorseTree {
 
     public static MorseNode getTree() throws IOException{
         if(tree == null){
+            System.out.println("hello");
             createTree();
         }
         return tree;
     }
 
     private static void createBranch(CodeList node){
-        while(node.getNext() != null){
+        while(node != null){
             int lengthOfCode = node.getCode().getCode().length();
+            
             MorseNode codeNode = tree;
             for(int i=0; i < lengthOfCode; i++){
                 char code = node.getCode().getCode().charAt(i);
