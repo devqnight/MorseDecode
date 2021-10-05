@@ -5,7 +5,6 @@ import com.lp.dao.enums.ETypeDao;
 import com.lp.dao.factory.DaoFactory;
 import com.lp.dao.io.DaoMorse;
 import com.lp.exceptions.MorseDaoException;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -78,18 +77,6 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
         this.disableBtnAddCode();
     }
 
-    /* public void onClickTranslate() {
-        try {
-            Translator tl = Translator.getTranslator();
-            String msg = txtToTranslate.getText();
-            String resultMorse = tl.toMorse(msg);
-            txtTranslated.setText(resultMorse);
-        } catch(Exception e){
-            txtTranslated.setText(e.getMessage());
-        }
-
-    } */
-
     public void onClickTranslate() {
         String txt = this.txtToTranslate.getText();
         String result = "";
@@ -138,7 +125,7 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
         }
     }
 
-    public void onClickAddCode() throws IOException{
+    public void onClickAddCode(){
         Optional<Pair<String,String>> result = CtrlDialogAddCode.getDialog(this.pendingCode);
 
         result.ifPresent(newCode -> {
@@ -153,10 +140,14 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
     }
 
     public void manageTextInput() {
-        this.btnTranslate.setDisable(txtToTranslate.getText().trim().length() == 0);
-        this.btnClear.setDisable(txtToTranslate.getText().trim().length() == 0);
-        this.btnSave.setDisable(txtTranslated.getText().trim().length() == 0 || txtFileName.getText().trim().length() == 0);
-        if(txtToTranslate.getText().trim().length() == 0){
+        boolean ToTranslateIsEmpty = txtToTranslate.getText().trim().length() == 0;
+        boolean TranslatedIsEmpty = txtTranslated.getText().trim().length() == 0;
+        boolean FileNameIsEmpty = txtFileName.getText().trim().length() == 0;
+
+        this.btnTranslate.setDisable(ToTranslateIsEmpty);
+        this.btnClear.setDisable(ToTranslateIsEmpty);
+        this.btnSave.setDisable(TranslatedIsEmpty || FileNameIsEmpty);
+        if(ToTranslateIsEmpty){
             disableBtnAddCode();
         }
     }
