@@ -20,12 +20,12 @@ public class TestReader {
 
     @Test
     public void testGetReader() throws IOException{
-        Assert.assertEquals(Reader.getReader("decode/text.txt").getClass(), BufferedReader.class);
+        Assert.assertEquals(Reader.getReader("to_translate/text.txt").getClass(), BufferedReader.class);
     }
 
     @Test
     public void testGetReaderExists() throws IOException{
-        Assert.assertNotNull(Reader.getReader("decode/text.txt"));
+        Assert.assertNotNull(Reader.getReader("to_translate/text.txt"));
     }
 
     @Test(expected = IOException.class)
