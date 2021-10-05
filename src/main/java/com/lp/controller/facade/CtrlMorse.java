@@ -149,14 +149,14 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
     }
 
     public void manageTextInput() {
-        boolean ToTranslateIsEmpty = txtToTranslate.getText().trim().length() == 0;
-        boolean TranslatedIsEmpty = txtTranslated.getText().trim().length() == 0;
-        boolean FileNameIsEmpty = txtFileName.getText().trim().length() == 0;
+        boolean toTranslateIsEmpty = txtToTranslate.getText().trim().length() == 0;
+        boolean translatedIsEmpty = txtTranslated.getText().trim().length() == 0;
+        boolean fileNameIsEmpty = txtFileName.getText().trim().length() == 0;
 
-        this.btnTranslate.setDisable(ToTranslateIsEmpty);
-        this.btnClear.setDisable(ToTranslateIsEmpty);
-        this.btnSave.setDisable(TranslatedIsEmpty || FileNameIsEmpty);
-        if(ToTranslateIsEmpty){
+        this.btnTranslate.setDisable(toTranslateIsEmpty);
+        this.btnClear.setDisable(toTranslateIsEmpty);
+        this.btnSave.setDisable(translatedIsEmpty || fileNameIsEmpty);
+        if(toTranslateIsEmpty){
             disableBtnAddCode();
         }
     }
