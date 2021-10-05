@@ -17,10 +17,20 @@ import javafx.util.Pair;
 
 public class CtrlDialogAddCode {
     
-    private static void initFields(TextField field, String pendingCode, Dialog<Pair<String,String>> dialog, ButtonType saveCodeBtn){
+    private static void initFields(TextField field, String pendingCode){
         field.setText(pendingCode);
         field.setEditable(false);
     }
+
+    private static void initNode(TextField field, Dialog<Pair<String,String>> dialog, ButtonType saveCodeBtn){
+        Node saveCode = dialog.getDialogPane().lookupButton(saveCodeBtn);
+        saveCode.setDisable(true);
+        field.textProperty().addListener((observable, oldValue, newValue) -> {
+            saveCode.setDisable(newValue.trim().isEmpty());
+        });
+    }
+
+    
 
     public static Optional<Pair<String,String>> getDialog(String pendingCode) throws IOException{
         Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -52,19 +62,12 @@ public class CtrlDialogAddCode {
         ) ? "String" : "Morse";
         
         if(type == "String"){
-            initFields(code, pendingCode, dialog, saveCodeBtn);
-            Node saveCode = dialog.getDialogPane().lookupButton(saveCodeBtn);
-            saveCode.setDisable(true);
-            code.textProperty().addListener((observable, oldValue, newValue) -> {
-                saveCode.setDisable(newValue.trim().isEmpty());
-            });
+            initFields(code, pendingCode);
+            initNode(letter, dialog, saveCodeBtn);
+            
         } else {
-            initFields(letter, pendingCode, dialog, saveCodeBtn);
-            Node saveCode = dialog.getDialogPane().lookupButton(saveCodeBtn);
-            saveCode.setDisable(true);
-            letter.textProperty().addListener((observable, oldValue, newValue) -> {
-                saveCode.setDisable(newValue.trim().isEmpty());
-            });
+            initFields(letter, pendingCode);
+            initNode(code, dialog, saveCodeBtn);
         }
 
         dialog.getDialogPane().setContent(grid);
