@@ -1,5 +1,6 @@
 package com.lp.controller.facade;
 
+import com.lp.controller.actions.MorseActions;
 import com.lp.dao.enums.ETypeDao;
 import com.lp.dao.factory.DaoFactory;
 import com.lp.dao.io.DaoMorse;
@@ -93,16 +94,9 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
 
     public void onClickTranslate() {
         String txt = this.txtToTranslate.getText();
-        String result ="";
+        String result = "";
         try {
-            switch(Tools.getTools().translateWhich(txt)){
-                case "String":
-                    result = Translator.getTranslator().toText(txt);
-                    break;
-                case "Morse":
-                    result = Translator.getTranslator().toMorse(txt);
-                    break;
-            }
+            result = MorseActions.translate(txt);
         } catch (Exception e) {
             this.pendingCode = e.getMessage();
             result = (pendingCode.length()>1 ? "word ":"character ") +pendingCode+ " does not exist in morse code...";
