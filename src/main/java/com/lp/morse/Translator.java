@@ -17,6 +17,11 @@ public class Translator {
         this.tree = MorseTree.getTree();
     }
 
+    public static void reloadTranslator() throws IOException{
+        instance = null;
+        instance = new Translator();
+    }
+
     public static Translator getTranslator() throws IOException{
         if(instance == null){
             instance = new Translator();

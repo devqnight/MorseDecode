@@ -1,5 +1,6 @@
 package com.lp.controller.facade;
 
+import com.lp.controller.actions.DialogAddActions;
 import com.lp.controller.actions.MorseActions;
 import com.lp.dao.enums.ETypeDao;
 import com.lp.dao.factory.DaoFactory;
@@ -132,7 +133,12 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
         Optional<Pair<String,String>> result = CtrlDialogAddCode.getDialog(this.pendingCode);
 
         result.ifPresent(newCode -> {
-            System.out.println("code: "+newCode.getValue()+", letter: "+newCode.getKey());
+            try {
+                int res = DialogAddActions.addCodeToList(newCode);
+                DialogAddActions.reload();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             disableBtnAddCode();
         });
     }

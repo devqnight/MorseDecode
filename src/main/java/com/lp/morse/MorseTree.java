@@ -15,6 +15,10 @@ public class MorseTree {
         createBranch(originList);
     }
 
+    public static void reloadTree() throws IOException{
+        tree = null;
+    }
+
     public static MorseNode getTree() throws IOException{
         if(tree == null){
             createTree();
@@ -25,7 +29,6 @@ public class MorseTree {
     private static void createBranch(CodeList node){
         while(node.getNext() != null){
             int lengthOfCode = node.getCode().getCode().length();
-
             MorseNode codeNode = tree;
             for(int i=0; i < lengthOfCode; i++){
                 char code = node.getCode().getCode().charAt(i);
