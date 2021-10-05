@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -106,6 +107,7 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
             }
             dao.writeTextToFile(fileName,this.txtTranslated.getText());
             lblWritingWarning.setText("Save completed !");
+            lblWritingWarning.setTextFill(Color.GREEN);
         } catch (MorseDaoException e) {
             lblWritingWarning.setText(e.getMessage());
         } catch (IOException e) {
@@ -121,11 +123,12 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
                 this.txtToTranslate.setText(dao.getTextFromFile(file.getPath()));
             } catch (Exception e) {
                 lblWritingWarning.setText(e.getMessage());
+                lblWritingWarning.setTextFill(Color.RED);
             }
         }
     }
 
-    public void onClickAddCode(){
+    public void onClickAddCode() throws IOException{
         Optional<Pair<String,String>> result = CtrlDialogAddCode.getDialog(this.pendingCode);
 
         result.ifPresent(newCode -> {
