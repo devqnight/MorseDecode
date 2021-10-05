@@ -24,7 +24,7 @@ public class Tools {
         return Reader.getCodes().hasLetter(input);
     }
 
-    public boolean isMorse(String input) throws IOException{
-        return (input.contains(".") || input.contains("-")) && (!isText(input));
+    public boolean isMorse(String input){
+        return input.matches("[-\\.]+");
     }
 }

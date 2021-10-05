@@ -3,6 +3,7 @@ package com.lp.controller.facade;
 import java.io.IOException;
 import java.util.Optional;
 
+import com.lp.tools.Reader;
 import com.lp.tools.Tools;
 
 import javafx.application.Platform;
@@ -22,15 +23,35 @@ public class CtrlDialogAddCode {
         field.setEditable(false);
     }
 
-    private static void initNode(TextField field, Dialog<Pair<String,String>> dialog, ButtonType saveCodeBtn){
+    private static void initNode(TextField field, Dialog<Pair<String,String>> dialog, ButtonType saveCodeBtn, String type){
         Node saveCode = dialog.getDialogPane().lookupButton(saveCodeBtn);
         saveCode.setDisable(true);
         field.textProperty().addListener((observable, oldValue, newValue) -> {
-            saveCode.setDisable(newValue.trim().isEmpty());
+            try {
+                if(type == "String"){
+                    saveCode.setDisable(validateInputLetter(type, newValue));
+                } else {
+                    saveCode.setDisable(validateInputMorse(type, newValue));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
-    
+    private static boolean validateInputMorse(String type, String newValue) throws IOException{
+        return newValue.trim().isEmpty() 
+        ||  !Tools.getTools().isMorse(newValue)
+        || Reader.getCodes().deCode(newValue) != "";
+    }
+
+    private static boolean validateInputLetter(String type, String newValue) throws IOException{
+        return newValue.trim().isEmpty() 
+        || newValue.trim().length() > 1 
+        || newValue.trim().contains(".") 
+        || newValue.trim().contains("-") 
+        || Reader.getCodes().isIn(newValue.toUpperCase()) != "(/)";
+    }
 
     public static Optional<Pair<String,String>> getDialog(String pendingCode) throws IOException{
         Dialog<Pair<String, String>> dialog = new Dialog<>();
@@ -63,11 +84,11 @@ public class CtrlDialogAddCode {
         
         if(type == "String"){
             initFields(code, pendingCode);
-            initNode(letter, dialog, saveCodeBtn);
+            initNode(letter, dialog, saveCodeBtn,type);
             
         } else {
             initFields(letter, pendingCode);
-            initNode(code, dialog, saveCodeBtn);
+            initNode(code, dialog, saveCodeBtn,type);
         }
 
         dialog.getDialogPane().setContent(grid);
