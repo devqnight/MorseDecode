@@ -1,5 +1,6 @@
 package com.lp.controller.facade;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import com.lp.tools.Tools;
@@ -16,7 +17,12 @@ import javafx.util.Pair;
 
 public class CtrlDialogAddCode {
     
-    public static Optional<Pair<String,String>> getDialog(String pendingCode){
+    private static void initFields(TextField field, String pendingCode, Dialog<Pair<String,String>> dialog, ButtonType saveCodeBtn){
+        field.setText(pendingCode);
+        field.setEditable(false);
+    }
+
+    public static Optional<Pair<String,String>> getDialog(String pendingCode) throws IOException{
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Add code");
         dialog.setHeaderText("Add a "+(pendingCode.length()>1?"character":"code")+" for this "+(pendingCode.length()>1?"code":"character")+" : "+pendingCode);
@@ -41,20 +47,22 @@ public class CtrlDialogAddCode {
 
         String type;
 
-        if((type = Tools.getTools().translateWhich(pendingCode)) == "String" && Tools.getTools().isMorse(pendingCode)){
-            code.setText(pendingCode);
-            code.setEditable(false);
-            Node saveCode = dialog.getDialogPane().lookupButton(saveCodeBtn);
-            saveCode.setDisable(true);
-            letter.textProperty().addListener((observable, oldValue, newValue) -> {
-                saveCode.setDisable(newValue.trim().isEmpty());
-            });
-        } else {
-            letter.setText(pendingCode);
-            letter.setEditable(false);
+        type = (Tools.getTools().translateWhich(pendingCode) == "String" 
+        && Tools.getTools().isMorse(pendingCode)
+        ) ? "String" : "Morse";
+        
+        if(type == "String"){
+            initFields(code, pendingCode, dialog, saveCodeBtn);
             Node saveCode = dialog.getDialogPane().lookupButton(saveCodeBtn);
             saveCode.setDisable(true);
             code.textProperty().addListener((observable, oldValue, newValue) -> {
+                saveCode.setDisable(newValue.trim().isEmpty());
+            });
+        } else {
+            initFields(letter, pendingCode, dialog, saveCodeBtn);
+            Node saveCode = dialog.getDialogPane().lookupButton(saveCodeBtn);
+            saveCode.setDisable(true);
+            letter.textProperty().addListener((observable, oldValue, newValue) -> {
                 saveCode.setDisable(newValue.trim().isEmpty());
             });
         }

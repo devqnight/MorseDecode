@@ -5,8 +5,6 @@ import com.lp.dao.enums.ETypeDao;
 import com.lp.dao.factory.DaoFactory;
 import com.lp.dao.io.DaoMorse;
 import com.lp.exceptions.MorseDaoException;
-import com.lp.morse.Translator;
-import com.lp.tools.Tools;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -140,7 +138,7 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
         }
     }
 
-    public void onClickAddCode(){
+    public void onClickAddCode() throws IOException{
         Optional<Pair<String,String>> result = CtrlDialogAddCode.getDialog(this.pendingCode);
 
         result.ifPresent(newCode -> {

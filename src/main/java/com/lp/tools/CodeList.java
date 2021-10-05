@@ -78,6 +78,17 @@ public class CodeList {
         this.next = cl;
     }
 
+    public boolean hasLetter(String testString){
+        if((testString.toUpperCase()).contains(this.code.getLetter())){
+            return true;
+        }
+        if(this.next != null){
+            return this.next.hasLetter(testString);
+        } else {
+            return false;
+        }
+    }
+
     @Override
     public String toString(){
         return "| "
