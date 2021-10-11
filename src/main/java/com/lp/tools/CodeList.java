@@ -91,9 +91,9 @@ public class CodeList {
 
     @Override
     public String toString(){
-        return "| "
+        return " "
                 +this.code.getLetter()
-                +" | "
+                +" => "
                 +this.code.getCode()
                 +"  \n" 
                 + (isEmpty(this.getNext()) ? "" : this.getNext());

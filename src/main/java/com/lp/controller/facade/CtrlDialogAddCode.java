@@ -17,12 +17,13 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
 public class CtrlDialogAddCode {
-    
+    //inits the field passed as argument with the code to add a translation for
     private static void initFields(TextField field, String pendingCode){
         field.setText(pendingCode);
         field.setEditable(false);
     }
 
+    //inits a node
     private static void initNode(TextField field, Dialog<Pair<String,String>> dialog, ButtonType saveCodeBtn, String type){
         Node saveCode = dialog.getDialogPane().lookupButton(saveCodeBtn);
         saveCode.setDisable(true);
@@ -39,18 +40,20 @@ public class CtrlDialogAddCode {
         });
     }
 
+    //validates morse inputs to verify it is indeed correct 
     private static boolean validateInputMorse(String type, String newValue) throws IOException{
-        return newValue.trim().isEmpty() 
-        ||  !Tools.getTools().isMorse(newValue)
-        || Reader.getCodes().deCode(newValue) != "";
+        return newValue.trim().isEmpty() //checks the value is not null
+        ||  !Tools.getTools().isMorse(newValue) //checks the code is actually morse code --> no illegal character
+        || Reader.getCodes().deCode(newValue) != ""; // checks that the new code doesn't already exists in the code list
     }
 
+    //validates letter inputs to verify it is indeed correct
     private static boolean validateInputLetter(String type, String newValue) throws IOException{
         return newValue.trim().isEmpty() 
         || newValue.trim().length() > 1 
         || newValue.trim().contains(".") 
         || newValue.trim().contains("-") 
-        || Reader.getCodes().isIn(newValue.toUpperCase()) != "(/)";
+        || Reader.getCodes().isIn(newValue.toUpperCase()) != "(/)"; //checks the new letter isn't already present in the morse code
     }
 
     // function used on click of the 'Add Code' button, it opens a dialog box 
@@ -83,20 +86,20 @@ public class CtrlDialogAddCode {
 
         type = (Tools.getTools().translateWhich(pendingCode) == "String" 
         && Tools.getTools().isMorse(pendingCode)
-        ) ? "String" : "Morse";
+        ) ? "String" : "Morse"; // selects the type of translation to use
         
-        if(type == "String"){
-            initFields(code, pendingCode);
+        if(type == "String"){ // unknown code, to add letter
+            initFields(code, pendingCode); 
             initNode(letter, dialog, saveCodeBtn,type);
             
-        } else {
+        } else { //unknown letter, to add code
             initFields(letter, pendingCode);
             initNode(code, dialog, saveCodeBtn,type);
         }
 
         dialog.getDialogPane().setContent(grid);
 
-        if(type == "String"){
+        if(type == "String"){ // sets focus on the right input field
             Platform.runLater(() -> letter.requestFocus());
         } else {
             Platform.runLater(() -> code.requestFocus());
@@ -110,7 +113,7 @@ public class CtrlDialogAddCode {
         });
 
         Optional<Pair<String,String>> result = dialog.showAndWait();
-        
+
         return result;
     }
 

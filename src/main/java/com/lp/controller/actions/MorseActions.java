@@ -1,6 +1,8 @@
 package com.lp.controller.actions;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.lp.dao.enums.ETypeDao;
@@ -47,5 +49,35 @@ public class MorseActions {
         }
         dao.writeTextToFile(fileName, text);
         return 0;
+    }
+
+    //resets the morse code to the basic code
+    public static void resetMorseCode() throws IOException {
+        File code = new File("src/main/java/com/lp/tools/codes.txt");
+        if(code.delete()){
+            File rstCode = new File("src/main/java/com/lp/tools/codes.txt");
+            File ogCode = new File("src/main/java/com/lp/tools/codes copy.txt");
+            copyContent(ogCode,rstCode);
+            DialogAddActions.reload();
+        }
+    }
+
+    private static void copyContent(File og, File dest) throws IOException{
+        FileInputStream in = new FileInputStream(og);
+        FileOutputStream out = new FileOutputStream(dest);
+        try{
+            int n;
+
+            while ((n = in.read()) != -1){
+                out.write(n);
+            }
+        }finally{
+            if(in != null){
+                in.close();
+            }
+            if(out != null){
+                out.close();
+            }
+        }
     }
 }

@@ -10,51 +10,78 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp.controller.facade.CtrlMorse">
+
+<VBox prefHeight="500.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.lp.controller.facade.CtrlMorse">
    <children>
-      <VBox prefHeight="286.0" prefWidth="626.0">
+      <HBox prefHeight="500.0" prefWidth="679.0">
          <children>
-            <TextArea fx:id="txtAreaToTranslate" prefHeight="132.0" prefWidth="540.0">
-               <VBox.margin>
-                  <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
-               </VBox.margin>
-            </TextArea>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0">
-              <buttons>
-                  <Button fx:id="btnOpenFile" alignment="CENTER" mnemonicParsing="false" onAction="#onClickOpenFileChooser" prefHeight="30.0" prefWidth="130.0" text="Open File" />
-                  <Button fx:id="btnTranslate" mnemonicParsing="false" onAction="#onClickTranslate" prefHeight="30.0" prefWidth="100.0" text="Translate" textAlignment="CENTER" />
-                  <Button fx:id="btnAddCode" disable="true" mnemonicParsing="false" onAction="#onClickAddCode" opacity="0.0" text="Add Code" />
-                  <Button fx:id="btnClear" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clearFields" prefHeight="30.0" prefWidth="52.0" text="Clear" />
-              </buttons>
-            </ButtonBar>
-         </children>
-      </VBox>
-      <VBox prefHeight="210.0" prefWidth="600.0">
-         <children>
-            <TextArea fx:id="txtAreaTranslated" editable="false" prefHeight="116.0" prefWidth="540.0">
-               <VBox.margin>
-                  <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
-               </VBox.margin>
-            </TextArea>
-         </children>
-      </VBox>
-      <HBox alignment="CENTER" prefHeight="58.0" prefWidth="600.0">
-         <children>
-            <TextField fx:id="txtFieldFileName" />
-            <Button fx:id="btnSave" mnemonicParsing="false" onAction="#onClickSave" prefHeight="30.0" prefWidth="60.0" text="Save">
-               <HBox.margin>
-                  <Insets left="30.0" />
-               </HBox.margin>
-            </Button>
+            <VBox prefHeight="500.0" prefWidth="207.0">
+               <children>
+                  <HBox>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label fx:id="lblTitleMorseCode" alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="120.0" text="Morse Code" textAlignment="CENTER">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnResetMorseCode" mnemonicParsing="false" onAction="#onClickResetMorseCode" text="Reset" />
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="txtAreaMorseCode" editable="false" prefHeight="473.0" prefWidth="171.0" />
+               </children>
+            </VBox>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="497.0">
+               <children>
+                  <VBox prefHeight="286.0" prefWidth="626.0">
+                     <children>
+                        <TextArea fx:id="txtAreaToTranslate" prefHeight="132.0" prefWidth="540.0">
+                           <VBox.margin>
+                              <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
+                           </VBox.margin>
+                        </TextArea>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                          <buttons>
+                              <Button fx:id="btnOpenFile" alignment="CENTER" mnemonicParsing="false" onAction="#onClickOpenFileChooser" prefHeight="30.0" prefWidth="130.0" text="Open File" />
+                              <Button fx:id="btnAddCode" disable="true" mnemonicParsing="false" onAction="#onClickAddCode" opacity="0.0" text="Add Code" />
+                              <Button fx:id="btnClear" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clearFields" prefHeight="30.0" prefWidth="52.0" text="Clear" />
+                          </buttons>
+                        </ButtonBar>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="210.0" prefWidth="600.0">
+                     <children>
+                        <TextArea fx:id="txtAreaTranslated" editable="false" prefHeight="116.0" prefWidth="540.0">
+                           <VBox.margin>
+                              <Insets bottom="25.0" left="30.0" right="30.0" top="25.0" />
+                           </VBox.margin>
+                        </TextArea>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="58.0" prefWidth="600.0">
+                     <children>
+                        <TextField fx:id="txtFieldFileName" />
+                        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#onClickSave" prefHeight="30.0" prefWidth="60.0" text="Save">
+                           <HBox.margin>
+                              <Insets left="30.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="78.0" prefWidth="600.0">
+                     <children>
+                        <Label fx:id="lblWritingWarning" alignment="CENTER" contentDisplay="CENTER" textFill="RED">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
          </children>
       </HBox>
-      <VBox alignment="CENTER" prefHeight="78.0" prefWidth="600.0">
-         <children>
-            <Label fx:id="lblWritingWarning" alignment="CENTER" contentDisplay="CENTER" textFill="RED">
-               <font>
-                  <Font size="17.0" />
-               </font></Label>
-         </children>
-      </VBox>
    </children>
 </VBox>
