@@ -11,6 +11,7 @@ import com.lp.dao.io.DaoMorse;
 import com.lp.exceptions.MorseBusinessException;
 import com.lp.exceptions.MorseDaoException;
 import com.lp.morse.Translator;
+import com.lp.tools.Reader;
 import com.lp.tools.Tools;
 
 public class MorseActions {
@@ -53,10 +54,10 @@ public class MorseActions {
 
     //resets the morse code to the basic code
     public static void resetMorseCode() throws IOException {
-        File code = new File("src/main/java/com/lp/tools/codes.txt");
+        File code = new File("codes/codes.txt");//Reader.getFileInJar("/codes/codes.txt");
         if(code.delete()){
-            File rstCode = new File("src/main/java/com/lp/tools/codes.txt");
-            File ogCode = new File("src/main/java/com/lp/tools/codes copy.txt");
+            File rstCode = new File("codes/codes.txt");
+            File ogCode = new File("codes/codes copy.txt");
             copyContent(ogCode,rstCode);
             DialogAddActions.reload();
         }

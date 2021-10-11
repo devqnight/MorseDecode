@@ -140,7 +140,7 @@ public class CtrlMorse implements Initializable {
     //opens a dialog box to choose a file to immediately open in the interface
     public void onClickOpenFileChooser() throws IOException{
         FileChooser fc = new FileChooser();
-        fc.setInitialDirectory(new File("to_translate/"));
+        fc.setInitialDirectory(new File("to_translate/"));//Reader.getFileInJar("/to_translate/"));
         File file = fc.showOpenDialog(this.vue);
         if(file != null){
             try {

@@ -2,9 +2,13 @@ package com.lp.tools;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+
+import com.lp.StartApp;
 
 public class Reader {
     private static File text;
@@ -21,7 +25,7 @@ public class Reader {
     // This function reads a .txt file and add all the translations to the code list
 
     private static void readCodes() throws IOException{
-        File text = new File("src/main/java/com/lp/tools/codes.txt");
+        File text = new File("codes/codes.txt");//getFileInJar("../codes/codes.txt");
         BufferedReader reader = new BufferedReader(new FileReader(text));
         String st;
         while( (st = reader.readLine()) != null){
@@ -49,9 +53,9 @@ public class Reader {
     // Add a new letter/number translation to the current translation file
     
     public static void addCodeToMorse(String newCode) throws IOException{
-        String dest = "src/main/java/com/lp/tools/codes.txt";
+        String dest = "codes/codes.txt";
 
-        FileWriter fw = new FileWriter(dest, true);
+        FileWriter fw = new FileWriter(dest,true);//getFileInJar(dest), true);
         fw.append(newCode);
         fw.close();
     }
@@ -65,8 +69,28 @@ public class Reader {
         if(text != null){
             text = null;
         }
-        text = new File(dest+name);
+        text = new File(dest+name);//getFileInJar(dest+name);
         BufferedReader reader = new BufferedReader(new FileReader(text));
         return reader;
+    }
+
+    public static File getFileInJar(String resourcePath) throws IOException{
+        InputStream is = StartApp.class.getResourceAsStream(resourcePath);
+        if (is == null) {
+            System.out.println("is null");
+        }
+        File tempFile = File.createTempFile(String.valueOf(is.hashCode()),"");
+        tempFile.deleteOnExit();
+
+        try (FileOutputStream out = new FileOutputStream(tempFile)) {
+            //copy stream
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+        
+            while ((bytesRead = is.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+        }
+        return tempFile;
     }
 }

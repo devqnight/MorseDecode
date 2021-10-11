@@ -38,7 +38,7 @@ public class DaoMorse implements IDaoMorse{
     public String writeTextToFile(String name, String file) throws IOException, MorseDaoException{
         String dest = "translations/"+name;
         
-        FileWriter myWriter = new FileWriter(dest);
+        FileWriter myWriter = new FileWriter(dest);//Reader.getFileInJar(dest));
         myWriter.write(file);
         myWriter.close();
         return "Successfully wrote to the file : "+name;

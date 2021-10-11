@@ -134,7 +134,7 @@ public class TestCodeClasses {
     public void testToStringList(){
         Code testCode = new Code("A", ".-");
         CodeList test = new CodeList(testCode, null);
-        Assert.assertEquals(test.toString(), "| "+testCode.getLetter()+" | "+testCode.getCode() +"  \n" +"");
+        Assert.assertEquals(test.toString(), " "+testCode.getLetter()+" => "+testCode.getCode() +"  \n" +"");
     }
 
     @Test
