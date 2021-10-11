@@ -63,7 +63,6 @@ public class CtrlMorse implements Initializable {
         this.btnClear.setDisable(true);
 
         initMorseCodeList();
-
         this.txtAreaToTranslate.textProperty().addListener((observable, oldValue, newValue) -> {
             onChangeTranslate(newValue);
             listenerTranslationButtons(newValue);
@@ -99,7 +98,7 @@ public class CtrlMorse implements Initializable {
     //listener for the save button and the status label
     private void listenerSaveButtons(String value){
         boolean isPending = this.pendingCode == null;
-        this.btnSave.setDisable(stringIsEmpty(value)|| !isPending); // ==> somehow is not working
+        this.btnSave.setDisable(stringIsEmpty(value)|| !isPending);
         this.lblWritingWarning.setText(stringIsEmpty(value)? "" : this.lblWritingWarning.getText());
     }
 
@@ -116,13 +115,15 @@ public class CtrlMorse implements Initializable {
 
     private void onChangeTranslate(String newValue){
         try {
+            this.pendingCode = null;
+            toggleAddCode(true);
             if(newValue.trim().length() > 0){
                 this.displayOnZone(MorseActions.translate(newValue), txtAreaTranslated, TextTypes.TEXT_T);
             } else {
-                this.clearFields(); // ==> this is not working as intended
+                this.clearFields();
             }
         } catch (Exception e) {
-            this.btnSave.setDisable(true); // ==> the save button stays disabled indefinitely
+            this.btnSave.setDisable(true);
             this.handleTranslateError(e, this.txtAreaTranslated);
         }
     }
@@ -159,12 +160,13 @@ public class CtrlMorse implements Initializable {
             try {
                 DialogAddActions.addCodeToList(newCode);
                 DialogAddActions.reload();
+                this.pendingCode = null;
+                toggleAddCode(true);
                 onChangeTranslate(this.txtAreaToTranslate.getText());
                 initMorseCodeList();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            toggleAddCode(true);
         });
     }
 
