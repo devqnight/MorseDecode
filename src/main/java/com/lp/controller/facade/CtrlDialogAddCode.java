@@ -53,6 +53,9 @@ public class CtrlDialogAddCode {
         || Reader.getCodes().isIn(newValue.toUpperCase()) != "(/)";
     }
 
+    // function used on click of the 'Add Code' button, it opens a dialog box 
+    // with 2 fields to fill, 'Letter' and 'Code' to add on the Morse list
+
     public static Optional<Pair<String,String>> getDialog(String pendingCode) throws IOException{
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Add code");

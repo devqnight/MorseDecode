@@ -51,6 +51,7 @@ public class CtrlMorse implements Initializable {
         this.vue = stage;
     }
 
+    // Initialize the main stage
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.btnTranslate.setDisable(true);
@@ -85,6 +86,7 @@ public class CtrlMorse implements Initializable {
         this.lblWritingWarning.setText(stringIsEmpty(value)? "" : this.lblWritingWarning.getText());
     }
 
+    // Clear all the fields
     public void clearFields() {
         this.txtFieldFileName.setText("");
         this.txtAreaToTranslate.setText("");

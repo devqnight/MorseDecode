@@ -3,6 +3,8 @@ package com.lp.morse;
 
 import com.lp.exceptions.MorseBusinessException;
 
+// Translates a Morse code to a String text
+
 public class TranslateToText {
     public static String toText(MorseNode tree,String morse) throws MorseBusinessException{
         String text ="";
@@ -31,6 +33,7 @@ public class TranslateToText {
         return res;
     }
 
+    // Returns a char in String format
     private static String toChar(MorseNode tree, String word, int index) throws MorseBusinessException{
         if(index == word.length()){
             return tree.getLetter();

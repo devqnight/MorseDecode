@@ -8,6 +8,8 @@ import com.lp.tools.CodeList;
 
 public class TranslateToMorse {
 
+    // Translates a String text to Morse Code
+    
     public static String toMorse(CodeList codes, String original) throws MorseBusinessException{
         original = Normalizer.normalize(original, Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         original = original.replaceAll("[-\\.]+", "");

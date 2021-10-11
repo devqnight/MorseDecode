@@ -13,6 +13,10 @@ import com.lp.tools.Tools;
 
 public class MorseActions {
 
+    // function used on click of the 'translate' button
+    // in : String text
+    // out : String result
+
     public static String translate(String textString) throws MorseBusinessException, IOException{
         String result ="";
         switch(Tools.getTools().translateWhich(textString)){
@@ -27,6 +31,9 @@ public class MorseActions {
         return result;
     }
     
+    // function used to save a translation into a file 
+    // in : String filename , String text 
+    // out : void
     public static int saveToFile(String fileName, String text) throws IOException, MorseDaoException {
         if(fileName.trim().length() == 0){
             throw new MorseDaoException("No file name provided !");

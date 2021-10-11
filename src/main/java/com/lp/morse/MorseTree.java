@@ -26,6 +26,7 @@ public class MorseTree {
         return tree;
     }
 
+    // Create a branch of the binary tree
     private static void createBranch(CodeList node){
         while(node != null){
             int lengthOfCode = node.getCode().getCode().length();

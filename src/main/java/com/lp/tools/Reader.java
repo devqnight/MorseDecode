@@ -18,6 +18,8 @@ public class Reader {
         return codeList;
     }
 
+    // This function reads a .txt file and add all the translations to the code list
+
     private static void readCodes() throws IOException{
         File text = new File("src/main/java/com/lp/tools/codes.txt");
         BufferedReader reader = new BufferedReader(new FileReader(text));
@@ -28,6 +30,8 @@ public class Reader {
         }
         reader.close();
     }
+
+    // Add a letter and its morse translation to the current code list
 
     private static void addCode(Code nc){
         CodeList temp1, temp2;
@@ -42,6 +46,8 @@ public class Reader {
         }
     }
 
+    // Add a new letter/number translation to the current translation file
+    
     public static void addCodeToMorse(String newCode) throws IOException{
         String dest = "src/main/java/com/lp/tools/codes.txt";
 
