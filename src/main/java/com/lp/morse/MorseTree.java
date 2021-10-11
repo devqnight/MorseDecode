@@ -21,7 +21,6 @@ public class MorseTree {
 
     public static MorseNode getTree() throws IOException{
         if(tree == null){
-            System.out.println("hello");
             createTree();
         }
         return tree;

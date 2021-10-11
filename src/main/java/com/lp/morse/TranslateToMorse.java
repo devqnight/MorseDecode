@@ -11,7 +11,6 @@ public class TranslateToMorse {
     public static String toMorse(CodeList codes, String original) throws MorseBusinessException{
         original = Normalizer.normalize(original, Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         original = original.replaceAll("[-\\.]+", "");
-        System.out.println(original);
         String morse = "";
         for(int i=0;i<original.length();i++) {
             if(original.charAt(i) == ' '){

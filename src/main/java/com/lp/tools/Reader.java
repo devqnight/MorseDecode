@@ -6,9 +6,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import com.lp.morse.MorseTree;
-import com.lp.morse.Translator;
-
 public class Reader {
     private static File text;
 
@@ -45,13 +42,12 @@ public class Reader {
         }
     }
 
-    public static int addCodeToMorse(String newCode) throws IOException{
+    public static void addCodeToMorse(String newCode) throws IOException{
         String dest = "src/main/java/com/lp/tools/codes.txt";
 
         FileWriter fw = new FileWriter(dest, true);
         fw.append(newCode);
         fw.close();
-        return 0;
     }
 
     public static void reloadCodes(){

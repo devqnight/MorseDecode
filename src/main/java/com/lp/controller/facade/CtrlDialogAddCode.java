@@ -107,9 +107,7 @@ public class CtrlDialogAddCode {
         });
 
         Optional<Pair<String,String>> result = dialog.showAndWait();
-        /* result.ifPresent(newCode -> {
-            if(type)
-        }); */
+        
         return result;
     }
 

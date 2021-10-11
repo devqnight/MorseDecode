@@ -2,16 +2,14 @@ package com.lp.controller.facade;
 
 import com.lp.controller.actions.DialogAddActions;
 import com.lp.controller.actions.MorseActions;
+import com.lp.controller.enums.TextTypes;
 import com.lp.dao.enums.ETypeDao;
 import com.lp.dao.factory.DaoFactory;
 import com.lp.dao.io.DaoMorse;
 import com.lp.exceptions.MorseDaoException;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -22,16 +20,16 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class CtrlMorse implements Initializable, ChangeListener<String> {
+public class CtrlMorse implements Initializable {
 
     private Stage vue;
 
     @FXML
-    private TextArea txtToTranslate;
+    private TextArea txtAreaToTranslate;
     @FXML
-    private TextArea txtTranslated;
+    private TextArea txtAreaTranslated;
     @FXML
-    private TextField txtFileName;
+    private TextField txtFieldFileName;
     @FXML
     private Label lblWritingWarning;
     @FXML
@@ -49,9 +47,8 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
 
     final FileChooser fileChooser = new FileChooser();
 
-    @Override
-    public void changed(ObservableValue<? extends String> observableValue, String t, String t1) {
-        this.manageTextInput();
+    public void setVue(Stage stage) {
+        this.vue = stage;
     }
 
     @Override
@@ -60,61 +57,58 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
         this.btnSave.setDisable(true);
         this.btnClear.setDisable(true);
 
-        this.txtToTranslate.textProperty().addListener(this);
-        this.txtTranslated.textProperty().addListener(this);
-        this.txtFileName.textProperty().addListener(this);
-        this.lblWritingWarning.textProperty().addListener(this);
+        this.txtAreaToTranslate.textProperty().addListener((observable, oldValue, newValue) -> {
+            listenerTranslationButtons(newValue);
+        });
+        
+        this.txtAreaTranslated.textProperty().addListener((observable, oldValue, newValue) -> {
+            listenerSaveButtons(newValue);
+        });
+    }  
+
+    //LISTENERS
+    private boolean stringIsEmpty(String res){
+        return res.trim().length() == 0;
     }
 
-    public void setVue(Stage stage) {
-        this.vue = stage;
+    private void listenerTranslationButtons(String value){
+        boolean isEmpty = stringIsEmpty(value);
+        this.btnClear.setDisable(isEmpty && stringIsEmpty(this.txtAreaTranslated.getText()));
+        this.btnTranslate.setDisable(isEmpty);
+        if(isEmpty){
+            toggleAddCode(true);
+        }
+    }
+
+    private void listenerSaveButtons(String value){
+        this.btnSave.setDisable(stringIsEmpty(value));
+        this.lblWritingWarning.setText(stringIsEmpty(value)? "" : this.lblWritingWarning.getText());
     }
 
     public void clearFields() {
-
-        this.txtFileName.setText("");
-        this.txtToTranslate.setText("");
-        this.txtTranslated.setText("");
+        this.txtFieldFileName.setText("");
+        this.txtAreaToTranslate.setText("");
+        this.txtAreaTranslated.setText("");
         this.lblWritingWarning.setText("");
-        this.disableBtnAddCode();
+        this.btnClear.setDisable(true);
+        toggleAddCode(true);
     }
 
     public void onClickTranslate() {
-        String txt = this.txtToTranslate.getText();
-        String result = "";
+        String txt = this.txtAreaToTranslate.getText();
         try {
-            result = MorseActions.translate(txt);
+            this.displayOnZone(MorseActions.translate(txt), txtAreaTranslated, TextTypes.TEXT_T);
         } catch (Exception e) {
-            this.pendingCode = e.getMessage();
-            result = (pendingCode.length()>1 ? "word ":"character ") +pendingCode+ " does not exist in morse code...";
-            this.btnAddCode.setDisable(false);
-            this.btnAddCode.setOpacity(100);
+            this.handleTranslateError(e, this.txtAreaTranslated);
         }
-        
-        this.txtTranslated.setText(result);
     }
 
     public void onClickSave(){
         try {
-            DaoMorse dao = (DaoMorse) DaoFactory.getDaoFactory(ETypeDao.IO).getDaoMorse();
-            String fileName = txtFileName.getText();
-            if (!fileName.endsWith(".txt")) {
-                fileName += ".txt";
-            }
-            File temp = new File("translations/"+fileName);
-            boolean exists = temp.exists();
-            if(exists){
-                throw new MorseDaoException("File "+fileName+" already exists...");
-            }
-            dao.writeTextToFile(fileName,this.txtTranslated.getText());
-            lblWritingWarning.setTextFill(Color.GREEN);
-            lblWritingWarning.setText("Save completed !");
-        } catch (MorseDaoException e) {
-            lblWritingWarning.setTextFill(Color.RED);
-            lblWritingWarning.setText(e.getMessage());
-        } catch (IOException e) {
-            lblWritingWarning.setTextFill(Color.RED);
-            lblWritingWarning.setText(e.getMessage());
+            if(MorseActions.saveToFile(txtFieldFileName.getText(),this.txtAreaTranslated.getText()) == 0)
+            this.displayOnZone("File saved !", lblWritingWarning, TextTypes.SUCCESS_T);
+        } catch (IOException | MorseDaoException e) {
+            this.displayOnZone(e.getMessage(), lblWritingWarning, TextTypes.ERROR_T);
         }
     }
 
@@ -123,10 +117,9 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
         if(file != null){
             try {
                 DaoMorse dao = (DaoMorse) DaoFactory.getDaoFactory(ETypeDao.IO).getDaoMorse();
-                this.txtToTranslate.setText(dao.getTextFromFile(file.getPath()));
+                this.displayOnZone(dao.getTextFromFile(file.getPath()), this.txtAreaToTranslate, TextTypes.TEXT_T);
             } catch (Exception e) {
-                lblWritingWarning.setTextFill(Color.RED);
-                lblWritingWarning.setText(e.getMessage());
+                this.displayOnZone(e.getMessage(), this.lblWritingWarning, TextTypes.ERROR_T);
             }
         }
     }
@@ -136,30 +129,35 @@ public class CtrlMorse implements Initializable, ChangeListener<String> {
 
         result.ifPresent(newCode -> {
             try {
-                int res = DialogAddActions.addCodeToList(newCode);
+                DialogAddActions.addCodeToList(newCode);
                 DialogAddActions.reload();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            disableBtnAddCode();
+            toggleAddCode(true);
         });
     }
 
-    private void disableBtnAddCode(){
-        this.btnAddCode.setDisable(true);
-        this.btnAddCode.setOpacity(0);
+    private void toggleAddCode(Boolean toggle){
+        this.btnAddCode.setDisable(toggle);
+        this.btnAddCode.setOpacity(toggle ? 0 : 100);
     }
 
-    public void manageTextInput() {
-        boolean toTranslateIsEmpty = txtToTranslate.getText().trim().length() == 0;
-        boolean translatedIsEmpty = txtTranslated.getText().trim().length() == 0;
-        boolean fileNameIsEmpty = txtFileName.getText().trim().length() == 0;
+    private void handleTranslateError(Exception e, Control control){
+        this.pendingCode = e.getMessage();
+        String result = (pendingCode.length()>1 ? "word ":"character ") 
+                        +pendingCode
+                        + " does not exist in morse code...";
+        this.toggleAddCode(false);
+        displayOnZone(result, control, TextTypes.ERROR_T);
+    }
 
-        this.btnTranslate.setDisable(toTranslateIsEmpty);
-        this.btnClear.setDisable(toTranslateIsEmpty);
-        this.btnSave.setDisable(translatedIsEmpty || fileNameIsEmpty);
-        if(toTranslateIsEmpty){
-            disableBtnAddCode();
+    private void displayOnZone(String msg, Control control, TextTypes type){
+        control.setStyle("-fx-text-fill: "+type.getColor()+";");
+        if(control instanceof TextInputControl){
+            ((TextInputControl)control).setText(msg);
+        } else if(control instanceof Labeled){
+            ((Labeled)control).setText(msg);
         }
     }
 }

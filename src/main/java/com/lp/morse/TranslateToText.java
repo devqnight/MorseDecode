@@ -24,7 +24,6 @@ public class TranslateToText {
 
     private static String[] newLineChar(String word, String text){
         while(word.charAt(0)=='\n'){
-            System.out.println("has \\n");
             text += "\n";
             word = word.substring(1, word.length());
         }

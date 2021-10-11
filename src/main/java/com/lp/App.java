@@ -37,6 +37,7 @@ public class App extends Application {
 
     public static void main(String[] args) {
         try {
+            
             launch(args);
         } catch(Exception ioe){
             ioe.printStackTrace();
