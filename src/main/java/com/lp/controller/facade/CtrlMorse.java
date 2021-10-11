@@ -99,7 +99,7 @@ public class CtrlMorse implements Initializable {
     //listener for the save button and the status label
     private void listenerSaveButtons(String value){
         boolean isPending = this.pendingCode == null;
-        this.btnSave.setDisable(stringIsEmpty(value)|| !isPending); 
+        this.btnSave.setDisable(stringIsEmpty(value)|| !isPending); // ==> somehow is not working
         this.lblWritingWarning.setText(stringIsEmpty(value)? "" : this.lblWritingWarning.getText());
     }
 
@@ -119,15 +119,15 @@ public class CtrlMorse implements Initializable {
             if(newValue.trim().length() > 0){
                 this.displayOnZone(MorseActions.translate(newValue), txtAreaTranslated, TextTypes.TEXT_T);
             } else {
-                this.clearFields();
+                this.clearFields(); // ==> this is not working as intended
             }
         } catch (Exception e) {
-            this.btnSave.setDisable(true);
+            this.btnSave.setDisable(true); // ==> the save button stays disabled indefinitely
             this.handleTranslateError(e, this.txtAreaTranslated);
         }
     }
 
-    public void onClickSave(){
+    public void onClickSave(){ 
         try {
             if(MorseActions.saveToFile(txtFieldFileName.getText(),this.txtAreaTranslated.getText()) == 0)
             this.displayOnZone("File saved !", lblWritingWarning, TextTypes.SUCCESS_T);
