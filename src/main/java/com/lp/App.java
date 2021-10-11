@@ -24,8 +24,6 @@ public class App extends Application {
             Node node = fxmlLoader.load();
             Scene scene = new Scene((VBox) node);
             primaryStage.setScene(scene);
-            //primaryStage.setX(100);
-            //primaryStage.setY(100);
             primaryStage.setTitle("Morse Translator");
             CtrlMorse controller = (CtrlMorse)fxmlLoader.getController();
             controller.setVue(primaryStage);

@@ -42,6 +42,7 @@ public class Reader {
         }
     }
 
+    //adds a new code to the morse code
     public static void addCodeToMorse(String newCode) throws IOException{
         String dest = "src/main/java/com/lp/tools/codes.txt";
 

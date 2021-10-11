@@ -10,11 +10,6 @@ arbre de conversion binaire morse vers alphabet
 
 # TO-DO
 
-refactoring des listeners
-
-option de traduction automatique lors de l'ouvertur d'un fichier
-
-(maybe) instant translation --> refactoring
 
 # DONE
 
@@ -30,3 +25,7 @@ ignorer les accents
 ignorer les retours à la ligne
 
 add color for errors in translated zone
+
+refactoring des listeners
+
+instant translation --> refactoring
