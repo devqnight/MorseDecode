@@ -11,7 +11,6 @@ import com.lp.dao.io.DaoMorse;
 import com.lp.exceptions.MorseBusinessException;
 import com.lp.exceptions.MorseDaoException;
 import com.lp.morse.Translator;
-import com.lp.tools.Reader;
 import com.lp.tools.Tools;
 
 public class MorseActions {
