@@ -15,6 +15,11 @@ public class Reader {
 
     private static CodeList codeList;
 
+    
+    /** 
+     * @return CodeList
+     * @throws IOException
+     */
     public static CodeList getCodes() throws IOException{
         if(codeList == null){
             readCodes();
@@ -22,6 +27,10 @@ public class Reader {
         return codeList;
     }
 
+    
+    /** 
+     * @throws IOException
+     */
     // This function reads a .txt file and add all the translations to the code list
 
     private static void readCodes() throws IOException{
@@ -35,6 +44,10 @@ public class Reader {
         reader.close();
     }
 
+    
+    /** 
+     * @param nc
+     */
     // Add a letter and its morse translation to the current code list
 
     private static void addCode(Code nc){
@@ -50,6 +63,11 @@ public class Reader {
         }
     }
 
+    
+    /** 
+     * @param newCode
+     * @throws IOException
+     */
     // Add a new letter/number translation to the current translation file
     
     public static void addCodeToMorse(String newCode) throws IOException{
@@ -64,6 +82,12 @@ public class Reader {
         codeList = null;
     }
     
+    
+    /** 
+     * @param name
+     * @return BufferedReader
+     * @throws IOException
+     */
     public static BufferedReader getReader(String name) throws IOException{
         String dest = "";
         if(text != null){
@@ -74,6 +98,12 @@ public class Reader {
         return reader;
     }
 
+    
+    /** 
+     * @param resourcePath
+     * @return File
+     * @throws IOException
+     */
     public static File getFileInJar(String resourcePath) throws IOException{
         InputStream is = StartApp.class.getResourceAsStream(resourcePath);
         if (is == null) {

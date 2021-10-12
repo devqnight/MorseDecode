@@ -15,6 +15,13 @@ import com.lp.tools.Tools;
 
 public class MorseActions {
 
+    
+    /** 
+     * @param textString
+     * @return String
+     * @throws MorseBusinessException
+     * @throws IOException
+     */
     // function used on click of the 'translate' button
     // in : String text
     // out : String result
@@ -33,6 +40,14 @@ public class MorseActions {
         return result;
     }
     
+    
+    /** 
+     * @param fileName
+     * @param text
+     * @return int
+     * @throws IOException
+     * @throws MorseDaoException
+     */
     // function used to save a translation into a file 
     // in : String filename , String text 
     // out : void
@@ -51,6 +66,10 @@ public class MorseActions {
         return 0;
     }
 
+    
+    /** 
+     * @throws IOException
+     */
     //resets the morse code to the basic code
     public static void resetMorseCode() throws IOException {
         File code = new File("codes/codes.txt");//Reader.getFileInJar("/codes/codes.txt");
@@ -62,6 +81,12 @@ public class MorseActions {
         }
     }
 
+    
+    /** 
+     * @param og
+     * @param dest
+     * @throws IOException
+     */
     private static void copyContent(File og, File dest) throws IOException{
         FileInputStream in = new FileInputStream(og);
         FileOutputStream out = new FileOutputStream(dest);

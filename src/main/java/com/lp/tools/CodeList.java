@@ -11,14 +11,26 @@ public class CodeList {
         this.next = cl;
     }
 
+    
+    /** 
+     * @return Code
+     */
     public Code getCode() {
         return code;
     }
 
+    
+    /** 
+     * @return CodeList
+     */
     public CodeList getNext() {
         return next;
     }
 
+    
+    /** 
+     * @param code
+     */
     public void addCode(Code code){
         if(this.getNext() == null){
             this.setNext(new CodeList(code, null));
@@ -27,6 +39,11 @@ public class CodeList {
         }
     }
 
+    
+    /** 
+     * @param c
+     * @param l
+     */
     public void addCode(String c, String l){
         if(this.getNext() == null){
             this.setNext(new CodeList(new Code(l, c),null));
@@ -35,6 +52,11 @@ public class CodeList {
         }
     }
 
+    
+    /** 
+     * @param el
+     * @throws MorseBusinessException
+     */
     public void deleteCode(String el) throws MorseBusinessException{
         if(this.getNext() == null){
             throw new MorseBusinessException("element "+el+" does not exist in the code list...");
@@ -47,6 +69,11 @@ public class CodeList {
         }
     }
 
+    
+    /** 
+     * @param searched
+     * @return String
+     */
     public String isIn(String searched){
         if(searched.equals(this.code.getLetter())){
             return this.code.getCode();
@@ -59,6 +86,11 @@ public class CodeList {
         
     }
 
+    
+    /** 
+     * @param code
+     * @return String
+     */
     public String deCode(String code){
         if(code.equals(this.code.getCode())){
             return this.code.getLetter();
@@ -70,14 +102,28 @@ public class CodeList {
         }
     }
 
+    
+    /** 
+     * @param l
+     * @return boolean
+     */
     private boolean isEmpty(CodeList l){
         return l == null;
     }
 
+    
+    /** 
+     * @param cl
+     */
     public void setNext(CodeList cl){
         this.next = cl;
     }
 
+    
+    /** 
+     * @param testString
+     * @return boolean
+     */
     public boolean hasLetter(String testString){
         if((testString.toUpperCase()).contains(this.code.getLetter())){
             return true;
@@ -89,6 +135,10 @@ public class CodeList {
         }
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString(){
         return " "
