@@ -12,6 +12,10 @@ import org.junit.Test;
 public class TestCodeClasses {
     private CodeList testList;
 
+    
+    /** 
+     * @throws IOException
+     */
     @Before
     public void initCodeClasses() throws IOException{
         this.testList = Reader.getCodes();
@@ -137,6 +141,10 @@ public class TestCodeClasses {
         Assert.assertEquals(test.toString(), " "+testCode.getLetter()+" => "+testCode.getCode() +"  \n" +"");
     }
 
+    
+    /** 
+     * @throws MorseBusinessException
+     */
     @Test
     public void testDeleteElement() throws MorseBusinessException{
         testList.addCode(new Code("0","---."));
@@ -144,6 +152,10 @@ public class TestCodeClasses {
         Assert.assertEquals("(/)",testList.isIn("0"));
     }
 
+    
+    /** 
+     * @throws MorseBusinessException
+     */
     @Test(expected = MorseBusinessException.class)
     public void testDeleteElementFail() throws MorseBusinessException{
         testList.deleteCode("/");
