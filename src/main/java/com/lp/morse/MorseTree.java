@@ -9,16 +9,29 @@ public class MorseTree {
 
     private static MorseNode tree;
 
+    
+    /** 
+     * @throws IOException
+     */
     public static void createTree() throws IOException{
         CodeList originList = Reader.getCodes();
         tree = new MorseNode();
         createBranch(originList);
     }
 
+    
+    /** 
+     * @throws IOException
+     */
     public static void reloadTree() throws IOException{
         tree = null;
     }
 
+    
+    /** 
+     * @return MorseNode
+     * @throws IOException
+     */
     public static MorseNode getTree() throws IOException{
         if(tree == null){
             createTree();
@@ -26,6 +39,10 @@ public class MorseTree {
         return tree;
     }
 
+    
+    /** 
+     * @param node
+     */
     // Create a branch of the binary tree
     private static void createBranch(CodeList node){
         while(node != null){

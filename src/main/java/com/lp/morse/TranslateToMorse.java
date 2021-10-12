@@ -8,6 +8,13 @@ import com.lp.tools.CodeList;
 
 public class TranslateToMorse {
 
+    
+    /** 
+     * @param codes
+     * @param original
+     * @return String
+     * @throws MorseBusinessException
+     */
     // Translates a String text to Morse Code
     
     public static String toMorse(CodeList codes, String original) throws MorseBusinessException{

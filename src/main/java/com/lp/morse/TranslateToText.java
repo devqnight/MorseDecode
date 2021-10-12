@@ -6,6 +6,13 @@ import com.lp.exceptions.MorseBusinessException;
 // Translates a Morse code to a String text
 
 public class TranslateToText {
+    
+    /** 
+     * @param tree
+     * @param morse
+     * @return String
+     * @throws MorseBusinessException
+     */
     public static String toText(MorseNode tree,String morse) throws MorseBusinessException{
         String text ="";
 
@@ -24,6 +31,12 @@ public class TranslateToText {
         return text.trim();
     }
 
+    
+    /** 
+     * @param word
+     * @param text
+     * @return String[]
+     */
     private static String[] newLineChar(String word, String text){
         while(word.charAt(0)=='\n'){
             text += "\n";
@@ -33,6 +46,14 @@ public class TranslateToText {
         return res;
     }
 
+    
+    /** 
+     * @param tree
+     * @param word
+     * @param index
+     * @return String
+     * @throws MorseBusinessException
+     */
     // Returns a char in String format
     private static String toChar(MorseNode tree, String word, int index) throws MorseBusinessException{
         if(index == word.length()){

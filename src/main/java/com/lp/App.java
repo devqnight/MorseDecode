@@ -15,6 +15,10 @@ import com.lp.controller.facade.CtrlMorse;
 
 public class App extends Application {
 
+    
+    /** 
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage){
         try {
@@ -33,6 +37,10 @@ public class App extends Application {
         }
     }
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         try {
             
