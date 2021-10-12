@@ -69,7 +69,7 @@
             </execution>
           </executions>
         </plugin>
-
+        
         <plugin>
           <!-- Build an executable JAR -->
           <groupId>org.apache.maven.plugins</groupId>
