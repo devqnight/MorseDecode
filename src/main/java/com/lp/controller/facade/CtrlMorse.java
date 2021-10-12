@@ -61,11 +61,10 @@ public class CtrlMorse implements Initializable {
 
     
     /** 
-     * @param location
-     * @param resources
+     * Initialize the main stage
+     * @param location An URL
+     * @param resources A ResourceBundle
      */
-    //init functions
-    // Initialize the main stage
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.btnSave.setDisable(true);
@@ -82,7 +81,9 @@ public class CtrlMorse implements Initializable {
         });
     }
     
-    //gets the morse code and displays it on a text area to the left of the window
+    /**
+     * Gets the morse code and displays it on a text area to the left of the window
+     */
     private void initMorseCodeList(){
         try {
             displayOnZone(Reader.getCodes().toString(), this.txtAreaMorseCode, TextTypes.TEXT_T);
@@ -91,19 +92,20 @@ public class CtrlMorse implements Initializable {
         }
     }
 
+    //LISTENERS
     
     /** 
-     * @param res
+     * Tests if a String is empty
+     * @param res String
      * @return boolean
      */
-    //LISTENERS
     private boolean stringIsEmpty(String res){
         return res.trim().length() == 0;
     }
 
     
     /** 
-     * @param value
+     * @param value String
      */
     private void listenerTranslationButtons(String value){
         boolean isEmpty = stringIsEmpty(value);
@@ -115,17 +117,19 @@ public class CtrlMorse implements Initializable {
 
     
     /** 
-     * @param value
+     * Listener for the save button and the status label
+     * @param value String
      */
-    //listener for the save button and the status label
     private void listenerSaveButtons(String value){
         boolean isPending = this.pendingCode == null;
         this.btnSave.setDisable(stringIsEmpty(value)|| !isPending);
         this.lblWritingWarning.setText(stringIsEmpty(value)? "" : this.lblWritingWarning.getText());
     }
 
-    //functions
-    // Clear all the fields
+    // Functions
+    /**
+     * Clear all the fields
+     */
     public void clearFields() {
         this.txtFieldFileName.setText("");
         this.txtAreaToTranslate.setText("");
@@ -137,7 +141,7 @@ public class CtrlMorse implements Initializable {
 
     
     /** 
-     * @param newValue
+     * @param newValue String
      */
     private void onChangeTranslate(String newValue){
         try {
@@ -165,9 +169,9 @@ public class CtrlMorse implements Initializable {
 
     
     /** 
+     * Opens a dialog box to choose a file to immediately open in the interface
      * @throws IOException
      */
-    //opens a dialog box to choose a file to immediately open in the interface
     public void onClickOpenFileChooser() throws IOException{
         FileChooser fc = new FileChooser();
         fc.setInitialDirectory(new File("to_translate/"));//Reader.getFileInJar("/to_translate/"));
@@ -184,9 +188,9 @@ public class CtrlMorse implements Initializable {
 
     
     /** 
+     * Opens a dialog box to add a code to the morse code when a character is entered and is not recognised
      * @throws IOException
      */
-    //opens a dialog box to add a code to the morse code when a character is entered and is not recognised
     public void onClickAddCode() throws IOException{
         Optional<Pair<String,String>> result = CtrlDialogAddCode.getDialog(this.pendingCode);
 
@@ -206,6 +210,7 @@ public class CtrlMorse implements Initializable {
 
     
     /** 
+     * Resets the morse code to the basic code
      * @throws IOException
      */
     public void onClickResetMorseCode() throws IOException{
@@ -216,9 +221,9 @@ public class CtrlMorse implements Initializable {
 
     
     /** 
-     * @param toggle
+     * Display or not the Add Code button
+     * @param toggle Boolean
      */
-    //display controls
     private void toggleAddCode(Boolean toggle){
         this.btnAddCode.setDisable(toggle);
         this.btnAddCode.setOpacity(toggle ? 0 : 100);
@@ -226,10 +231,10 @@ public class CtrlMorse implements Initializable {
 
     
     /** 
-     * @param e
-     * @param control
+     * Handles errors when translating
+     * @param e Exception
+     * @param control Control
      */
-    //handles errors when translating
     private void handleTranslateError(Exception e, Control control){
         this.pendingCode = e.getMessage();
         String result = (pendingCode.length()>1 ? "word ":"character ") 
@@ -241,11 +246,11 @@ public class CtrlMorse implements Initializable {
 
     
     /** 
-     * @param msg
-     * @param control
-     * @param type
+     * Displays text in the control zone passed as argument, and applies the color according to the text type
+     * @param msg String
+     * @param control Control
+     * @param type TextTypes
      */
-    //displays text in the control zone passed as argument, and applies the color according to the text type
     private void displayOnZone(String msg, Control control, TextTypes type){
         control.setStyle("-fx-text-fill: "+type.getColor()+";");
         if(control instanceof TextInputControl){

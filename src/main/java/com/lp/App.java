@@ -17,7 +17,7 @@ public class App extends Application {
 
     
     /** 
-     * @param primaryStage
+     * @param primaryStage Stage
      */
     @Override
     public void start(Stage primaryStage){
@@ -39,7 +39,7 @@ public class App extends Application {
 
     
     /** 
-     * @param args
+     * @param args String[]
      */
     public static void main(String[] args) {
         try {

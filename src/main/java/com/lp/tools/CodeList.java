@@ -29,7 +29,7 @@ public class CodeList {
 
     
     /** 
-     * @param code
+     * @param code Code
      */
     public void addCode(Code code){
         if(this.getNext() == null){
@@ -41,8 +41,9 @@ public class CodeList {
 
     
     /** 
-     * @param c
-     * @param l
+     * Add a code and its translation to the main code list
+     * @param c String
+     * @param l String
      */
     public void addCode(String c, String l){
         if(this.getNext() == null){
@@ -54,7 +55,8 @@ public class CodeList {
 
     
     /** 
-     * @param el
+     * Delete a code and its translation on the main code list
+     * @param el String
      * @throws MorseBusinessException
      */
     public void deleteCode(String el) throws MorseBusinessException{
@@ -71,7 +73,8 @@ public class CodeList {
 
     
     /** 
-     * @param searched
+     * To search if a letter is in the main code list
+     * @param searched String
      * @return String
      */
     public String isIn(String searched){
@@ -88,7 +91,7 @@ public class CodeList {
 
     
     /** 
-     * @param code
+     * @param code String
      * @return String
      */
     public String deCode(String code){
@@ -104,7 +107,7 @@ public class CodeList {
 
     
     /** 
-     * @param l
+     * @param l CodeList
      * @return boolean
      */
     private boolean isEmpty(CodeList l){
@@ -113,7 +116,7 @@ public class CodeList {
 
     
     /** 
-     * @param cl
+     * @param cl Codelist
      */
     public void setNext(CodeList cl){
         this.next = cl;
@@ -121,7 +124,7 @@ public class CodeList {
 
     
     /** 
-     * @param testString
+     * @param testString String
      * @return boolean
      */
     public boolean hasLetter(String testString){

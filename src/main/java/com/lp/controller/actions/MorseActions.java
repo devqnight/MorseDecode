@@ -17,15 +17,12 @@ public class MorseActions {
 
     
     /** 
-     * @param textString
-     * @return String
+     * Function used to translate the input text into the corresponding language
+     * @param textString a String text
+     * @return String a String result
      * @throws MorseBusinessException
      * @throws IOException
      */
-    // function used on click of the 'translate' button
-    // in : String text
-    // out : String result
-
     public static String translate(String textString) throws MorseBusinessException, IOException{
         String result ="";
         switch(Tools.getTools().translateWhich(textString)){
@@ -42,15 +39,13 @@ public class MorseActions {
     
     
     /** 
-     * @param fileName
-     * @param text
-     * @return int
+     * Function used to save a translation into a file
+     * @param fileName The targeted filename
+     * @param text The text to save
+     * @return int Returns 0 if the file has been successfuly saved
      * @throws IOException
      * @throws MorseDaoException
      */
-    // function used to save a translation into a file 
-    // in : String filename , String text 
-    // out : void
     public static int saveToFile(String fileName, String text) throws IOException, MorseDaoException {
         if(fileName.trim().length() == 0){
             throw new MorseDaoException("No file name provided !");
@@ -68,9 +63,9 @@ public class MorseActions {
 
     
     /** 
+     * Resets the morse code to the basic code
      * @throws IOException
      */
-    //resets the morse code to the basic code
     public static void resetMorseCode() throws IOException {
         File code = new File("codes/codes.txt");//Reader.getFileInJar("/codes/codes.txt");
         if(code.delete()){
@@ -83,8 +78,9 @@ public class MorseActions {
 
     
     /** 
-     * @param og
-     * @param dest
+     * Function to copy the content of a file into another file
+     * @param og Original File
+     * @param dest Destination File
      * @throws IOException
      */
     private static void copyContent(File og, File dest) throws IOException{

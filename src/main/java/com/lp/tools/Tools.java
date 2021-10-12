@@ -18,7 +18,8 @@ public class Tools {
 
     
     /** 
-     * @param input
+     * Translates a string or a morse code
+     * @param input String
      * @return String
      * @throws IOException
      */
@@ -32,7 +33,8 @@ public class Tools {
 
     
     /** 
-     * @param input
+     * Tests if the input is a text or not
+     * @param input String
      * @return boolean
      * @throws IOException
      */
@@ -42,7 +44,8 @@ public class Tools {
 
     
     /** 
-     * @param input
+     * Tests if the input is a morse code or not
+     * @param input String
      * @return boolean
      */
     public boolean isMorse(String input){

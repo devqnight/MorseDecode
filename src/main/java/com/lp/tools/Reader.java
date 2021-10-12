@@ -29,10 +29,9 @@ public class Reader {
 
     
     /** 
+     * This function reads a .txt file and add all the translations to the code list
      * @throws IOException
      */
-    // This function reads a .txt file and add all the translations to the code list
-
     private static void readCodes() throws IOException{
         File text = new File("codes/codes.txt");//getFileInJar("../codes/codes.txt");
         BufferedReader reader = new BufferedReader(new FileReader(text));
@@ -46,10 +45,9 @@ public class Reader {
 
     
     /** 
-     * @param nc
+     * Add a letter and its morse translation to the current code list
+     * @param nc Code
      */
-    // Add a letter and its morse translation to the current code list
-
     private static void addCode(Code nc){
         CodeList temp1, temp2;
 
@@ -65,11 +63,10 @@ public class Reader {
 
     
     /** 
-     * @param newCode
+     * Add a new letter/number translation to the current translation file
+     * @param newCode String
      * @throws IOException
      */
-    // Add a new letter/number translation to the current translation file
-    
     public static void addCodeToMorse(String newCode) throws IOException{
         String dest = "codes/codes.txt";
 
@@ -84,7 +81,7 @@ public class Reader {
     
     
     /** 
-     * @param name
+     * @param name String
      * @return BufferedReader
      * @throws IOException
      */
@@ -100,7 +97,7 @@ public class Reader {
 
     
     /** 
-     * @param resourcePath
+     * @param resourcePath String
      * @return File
      * @throws IOException
      */
