@@ -57,8 +57,7 @@ public class MorseActions {
         if ((new File("translations/"+fileName)).exists()){
             throw new MorseDaoException("File "+fileName+" already exists...");
         }
-        dao.writeTextToFile(fileName, text);
-        return 0;
+        return dao.writeTextToFile(fileName, text);
     }
 
     

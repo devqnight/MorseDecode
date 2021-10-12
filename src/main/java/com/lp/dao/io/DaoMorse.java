@@ -15,6 +15,7 @@ public class DaoMorse implements IDaoMorse{
 
     
     /** 
+     * singleton dao morse
      * @return DaoMorse
      */
     public static DaoMorse getDaoMorseInstance(){
@@ -26,8 +27,9 @@ public class DaoMorse implements IDaoMorse{
 
     
     /** 
-     * @param name
-     * @return String
+     * Reads text from a file ==> used to a file to translate
+     * @param name : name of the file
+     * @return String : content of file as a String
      * @throws IOException
      */
     public String getTextFromFile(String name) throws IOException{
@@ -47,19 +49,20 @@ public class DaoMorse implements IDaoMorse{
 
     
     /** 
-     * @param name
-     * @param file
-     * @return String
+     * Creates new file and adds the translation in it
+     * @param name : name of file to create
+     * @param file : content of the file
+     * @return int : result of function --> returns 0 for action done
      * @throws IOException
      * @throws MorseDaoException
      */
-    public String writeTextToFile(String name, String file) throws IOException, MorseDaoException{
+    public int writeTextToFile(String name, String file) throws IOException, MorseDaoException{
         String dest = "translations/"+name;
         
         FileWriter myWriter = new FileWriter(dest);//Reader.getFileInJar(dest));
         myWriter.write(file);
         myWriter.close();
-        return "Successfully wrote to the file : "+name;
+        return 0;
     }
 
     

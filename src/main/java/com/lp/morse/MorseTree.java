@@ -11,6 +11,7 @@ public class MorseTree {
 
     
     /** 
+     * Creates MorseNode original point, and calls the function to fill it
      * @throws IOException
      */
     public static void createTree() throws IOException{
@@ -21,6 +22,7 @@ public class MorseTree {
 
     
     /** 
+     * reloads the tree by deleting it, will be called by translator later
      * @throws IOException
      */
     public static void reloadTree() throws IOException{
@@ -29,7 +31,8 @@ public class MorseTree {
 
     
     /** 
-     * @return MorseNode
+     * Singleton to return whole morse tree
+     * @return MorseNode : morse tree
      * @throws IOException
      */
     public static MorseNode getTree() throws IOException{
@@ -41,9 +44,9 @@ public class MorseTree {
 
     
     /** 
-     * @param node
+     * Creates a branch of the binary tree of the morse code
+     * @param node : original code in chained list
      */
-    // Create a branch of the binary tree
     private static void createBranch(CodeList node){
         while(node != null){
             int lengthOfCode = node.getCode().getCode().length();

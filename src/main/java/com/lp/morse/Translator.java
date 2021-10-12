@@ -19,6 +19,7 @@ public class Translator {
 
     
     /** 
+     * Deletes the current instance to recreate it and reload all code lists
      * @throws IOException
      */
     public static void reloadTranslator() throws IOException{
@@ -28,7 +29,8 @@ public class Translator {
 
     
     /** 
-     * @return Translator
+     * Singleton of Translator
+     * @return Translator : instance of Translator
      * @throws IOException
      */
     public static Translator getTranslator() throws IOException{
@@ -40,8 +42,9 @@ public class Translator {
 
     
     /** 
-     * @param data
-     * @return String
+     * Translates data to text
+     * @param data : morse text
+     * @return String : normal translated text
      * @throws MorseBusinessException
      */
     public String toText(String data) throws MorseBusinessException{
@@ -51,9 +54,9 @@ public class Translator {
     }
 
     /**
-     * 
-     * @param data
-     * @return
+     * Translates data to morse
+     * @param data : normal text
+     * @return String : morse text
      * @throws MorseBusinessException
      */
     public String toMorse(String data) throws MorseBusinessException{

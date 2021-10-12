@@ -8,9 +8,10 @@ import com.lp.exceptions.MorseBusinessException;
 public class TranslateToText {
     
     /** 
-     * @param tree
-     * @param morse
-     * @return String
+     * Translates a morse text to a String text using a binary tree
+     * @param tree : binary tree of the morse code
+     * @param morse : morse text
+     * @return String : translation
      * @throws MorseBusinessException
      */
     public static String toText(MorseNode tree,String morse) throws MorseBusinessException{
@@ -33,9 +34,11 @@ public class TranslateToText {
 
     
     /** 
-     * @param word
-     * @param text
-     * @return String[]
+     * Adds next line characters to the final text and removes them from the word to translate.
+     * Loops to get rid of \n in word and adds them to text
+     * @param word : word to translate
+     * @param text : final translation
+     * @return String[] : { word : word to translate, text : final translation}
      */
     private static String[] newLineChar(String word, String text){
         while(word.charAt(0)=='\n'){
@@ -48,13 +51,14 @@ public class TranslateToText {
 
     
     /** 
-     * @param tree
-     * @param word
-     * @param index
-     * @return String
-     * @throws MorseBusinessException
+     * Recursive function :
+     * returns the char corresponding to the morse code passed in word
+     * @param tree : morse binary tree
+     * @param word : morse code
+     * @param index : start index
+     * @return String : letter from the morse code
+     * @throws MorseBusinessException : if the code doens't exist in the morse tree
      */
-    // Returns a char in String format
     private static String toChar(MorseNode tree, String word, int index) throws MorseBusinessException{
         if(index == word.length()){
             return tree.getLetter();

@@ -10,8 +10,9 @@ public abstract class DaoFactory {
 
     
     /** 
-     * @param target
-     * @return DaoFactory
+     * DAO Factory returns according type of DAO according to target
+     * @param target : type of DAO
+     * @return DaoFactory : DAO
      * @throws MorseDaoException
      */
     public static DaoFactory getDaoFactory(ETypeDao target) throws MorseDaoException{
@@ -25,6 +26,6 @@ public abstract class DaoFactory {
         }
 
     }
-
+    
     public abstract IDaoMorse getDaoMorse();
 }

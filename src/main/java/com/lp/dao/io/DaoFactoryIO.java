@@ -8,7 +8,8 @@ public class DaoFactoryIO extends DaoFactory{
 
     
     /** 
-     * @return IDaoMorse
+     * Returns a DAO instance
+     * @return IDaoMorse : resulting instance of DAO
      */
     @Override
     public IDaoMorse getDaoMorse(){

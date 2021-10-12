@@ -19,10 +19,10 @@ import javafx.util.Pair;
 public class CtrlDialogAddCode {
     
     /** 
-     * @param field
-     * @param pendingCode
+     * inits the field passed as argument with the code to add a translation for
+     * @param field field to be initialized
+     * @param pendingCode unknown code to add to morse code
      */
-    //inits the field passed as argument with the code to add a translation for
     private static void initFields(TextField field, String pendingCode){
         field.setText(pendingCode);
         field.setEditable(false);
@@ -30,20 +30,20 @@ public class CtrlDialogAddCode {
 
     
     /** 
-     * @param dialog
-     * @param saveCodeBtn
-     * @param type
+     * inits a node
+     * @param dialog main dialog window
+     * @param saveCodeBtn button for saving a new code
+     * @param type string or morse
      */
-    //inits a node
     private static void initNode(TextField field, Dialog<Pair<String,String>> dialog, ButtonType saveCodeBtn, String type){
         Node saveCode = dialog.getDialogPane().lookupButton(saveCodeBtn);
         saveCode.setDisable(true);
         field.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 if(type == "String"){
-                    saveCode.setDisable(validateInputLetter(type, newValue));
+                    saveCode.setDisable(validateInputLetter(newValue));
                 } else {
-                    saveCode.setDisable(validateInputMorse(type, newValue));
+                    saveCode.setDisable(validateInputMorse(newValue));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -53,13 +53,15 @@ public class CtrlDialogAddCode {
 
     
     /** 
-     * @param type
-     * @param newValue
-     * @return boolean
+     * Validates code inputs to verify it is indeed correct.
+     * Checks if the code is empty or if the code contains invalid characters for the morse code or if the code is already in the morse code.
+     * This function is used to disable the save code button in case the input is invalid.
+     * @param newValue : new code to add to morse code
+     * @return boolean : returns false if the input is valid; true if the input is invalid
      * @throws IOException
      */
     //validates morse inputs to verify it is indeed correct 
-    private static boolean validateInputMorse(String type, String newValue) throws IOException{
+    private static boolean validateInputMorse(String newValue) throws IOException{
         return newValue.trim().isEmpty() //checks the value is not null
         ||  !Tools.getTools().isMorse(newValue) //checks the code is actually morse code --> no illegal character
         || Reader.getCodes().deCode(newValue) != ""; // checks that the new code doesn't already exists in the code list
@@ -67,13 +69,14 @@ public class CtrlDialogAddCode {
 
     
     /** 
-     * @param type
-     * @param newValue
-     * @return boolean
+     * Validates letter inputs to verify it is indeed correct.
+     * Checks if the letter is empty or contains ' . ' or ' - ' or if the letter is already in the morse code.
+     * This function is used to disable the save code button in case the input is invalid.
+     * @param newValue : New Letter to add to morse code
+     * @return boolean : returns false if the input is valid; true if the input is invalid
      * @throws IOException
      */
-    //validates letter inputs to verify it is indeed correct
-    private static boolean validateInputLetter(String type, String newValue) throws IOException{
+    private static boolean validateInputLetter(String newValue) throws IOException{
         return newValue.trim().isEmpty() 
         || newValue.trim().length() > 1 
         || newValue.trim().contains(".") 
@@ -83,13 +86,12 @@ public class CtrlDialogAddCode {
 
     
     /** 
-     * @param pendingCode
-     * @return Optional<Pair<String, String>>
+     * function used on click of the 'Add Code' button, it opens a dialog box 
+     * with 2 fields to fill, 'Letter' and 'Code' to add on the Morse list
+     * @param pendingCode : unknown code to add
+     * @return Optional<Pair<String, String>> : resulting code letter pair
      * @throws IOException
      */
-    // function used on click of the 'Add Code' button, it opens a dialog box 
-    // with 2 fields to fill, 'Letter' and 'Code' to add on the Morse list
-
     public static Optional<Pair<String,String>> getDialog(String pendingCode) throws IOException{
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Add code");

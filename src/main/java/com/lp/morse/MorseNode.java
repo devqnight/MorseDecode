@@ -2,6 +2,11 @@ package com.lp.morse;
 
 import com.lp.tools.Code;
 
+/**
+ * Node of Morse Tree.
+ * contains a morse code, 
+ * plus next node on right and next node on left
+ */
 public class MorseNode {
     
     private Code morseCode;
@@ -16,6 +21,7 @@ public class MorseNode {
 
     
     /** 
+     * sets left node
      * @param node
      */
     public void setLeft(MorseNode node){
@@ -24,6 +30,7 @@ public class MorseNode {
 
     
     /** 
+     * sets right node
      * @param node
      */
     public void setRight(MorseNode node){
@@ -32,6 +39,7 @@ public class MorseNode {
 
     
     /** 
+     * returns left node
      * @return MorseNode
      */
     public MorseNode getLeft(){
@@ -40,6 +48,7 @@ public class MorseNode {
 
     
     /** 
+     * returns right node
      * @return MorseNode
      */
     public MorseNode getRight(){
@@ -48,6 +57,7 @@ public class MorseNode {
 
     
     /** 
+     * sets the letter of the morse code of the node
      * @param letter
      */
     public void setLetter(String letter){
@@ -56,6 +66,7 @@ public class MorseNode {
 
     
     /** 
+     * sets the code of the morse code of the node
      * @param code
      */
     public void setCode(String code){
@@ -64,8 +75,9 @@ public class MorseNode {
 
     
     /** 
-     * @param code
-     * @param letter
+     * sets the morse code of the node with the provided code and letter 
+     * @param code : morse code
+     * @param letter : letter for the morse code
      */
     public void setMorseCode(String code, String letter){
         this.morseCode = new Code(code, letter);
@@ -73,7 +85,8 @@ public class MorseNode {
 
     
     /** 
-     * @param code
+     * sets the morse code of the node with a code object already created
+     * @param code : morse code object
      */
     public void setMorseCode(Code code){
         this.morseCode = code;
@@ -81,6 +94,7 @@ public class MorseNode {
 
     
     /** 
+     * returns the morse code object of the node
      * @return Code
      */
     public Code getMorseCode(){
@@ -89,6 +103,7 @@ public class MorseNode {
 
     
     /** 
+     * returns the letter of the morse code of the node
      * @return String
      */
     public String getLetter(){
@@ -97,6 +112,7 @@ public class MorseNode {
 
     
     /** 
+     * returns the code of the morse code of the node
      * @return String
      */
     public String getCode(){
@@ -105,6 +121,7 @@ public class MorseNode {
 
     
     /** 
+     * returns the morse code of the node as a String
      * @return String
      */
     @Override
@@ -112,6 +129,9 @@ public class MorseNode {
         return this.getMorseCode().toString();
     }
 
+    /**
+     * displays the whole morse tree starting from this node
+     */
     public void displayTree(){
         System.out.println("display : "+this.morseCode);
         if(this.left != null){

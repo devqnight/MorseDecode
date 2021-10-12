@@ -10,13 +10,12 @@ public class TranslateToMorse {
 
     
     /** 
-     * @param codes
-     * @param original
-     * @return String
+     * Translate a String text to Morse Code
+     * @param codes : morse code as chained list
+     * @param original : original text 
+     * @return String : morse translation
      * @throws MorseBusinessException
      */
-    // Translates a String text to Morse Code
-    
     public static String toMorse(CodeList codes, String original) throws MorseBusinessException{
         original = Normalizer.normalize(original, Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
         original = original.replaceAll("[-\\.]+", "");
