@@ -6,6 +6,10 @@ import com.lp.interfaces.IDaoMorse;
 public class DaoFactoryIO extends DaoFactory{
     private IDaoMorse daoMorse;
 
+    
+    /** 
+     * @return IDaoMorse
+     */
     @Override
     public IDaoMorse getDaoMorse(){
         if(this.daoMorse == null){

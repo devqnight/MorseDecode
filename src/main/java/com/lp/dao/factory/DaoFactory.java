@@ -8,6 +8,12 @@ import com.lp.interfaces.IDaoMorse;
 
 public abstract class DaoFactory {
 
+    
+    /** 
+     * @param target
+     * @return DaoFactory
+     * @throws MorseDaoException
+     */
     public static DaoFactory getDaoFactory(ETypeDao target) throws MorseDaoException{
         switch(target){
             case IO:

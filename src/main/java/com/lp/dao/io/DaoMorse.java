@@ -13,6 +13,10 @@ public class DaoMorse implements IDaoMorse{
 
     private DaoMorse(){}
 
+    
+    /** 
+     * @return DaoMorse
+     */
     public static DaoMorse getDaoMorseInstance(){
         if(instance == null){
             instance = new DaoMorse();
@@ -20,6 +24,12 @@ public class DaoMorse implements IDaoMorse{
         return instance;
     }
 
+    
+    /** 
+     * @param name
+     * @return String
+     * @throws IOException
+     */
     public String getTextFromFile(String name) throws IOException{
         String sb = "";
         BufferedReader rd = Reader.getReader(name);
@@ -35,6 +45,14 @@ public class DaoMorse implements IDaoMorse{
         return sb;
     }
 
+    
+    /** 
+     * @param name
+     * @param file
+     * @return String
+     * @throws IOException
+     * @throws MorseDaoException
+     */
     public String writeTextToFile(String name, String file) throws IOException, MorseDaoException{
         String dest = "translations/"+name;
         

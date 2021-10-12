@@ -51,10 +51,19 @@ public class CtrlMorse implements Initializable {
 
     private String pendingCode;
 
+    
+    /** 
+     * @param stage
+     */
     public void setVue(Stage stage) {
         this.vue = stage;
     }
 
+    
+    /** 
+     * @param location
+     * @param resources
+     */
     //init functions
     // Initialize the main stage
     @Override
@@ -82,11 +91,20 @@ public class CtrlMorse implements Initializable {
         }
     }
 
+    
+    /** 
+     * @param res
+     * @return boolean
+     */
     //LISTENERS
     private boolean stringIsEmpty(String res){
         return res.trim().length() == 0;
     }
 
+    
+    /** 
+     * @param value
+     */
     private void listenerTranslationButtons(String value){
         boolean isEmpty = stringIsEmpty(value);
         this.btnClear.setDisable(isEmpty && stringIsEmpty(this.txtAreaTranslated.getText()));
@@ -95,6 +113,10 @@ public class CtrlMorse implements Initializable {
         }
     }
 
+    
+    /** 
+     * @param value
+     */
     //listener for the save button and the status label
     private void listenerSaveButtons(String value){
         boolean isPending = this.pendingCode == null;
@@ -113,6 +135,10 @@ public class CtrlMorse implements Initializable {
         toggleAddCode(true);
     }
 
+    
+    /** 
+     * @param newValue
+     */
     private void onChangeTranslate(String newValue){
         try {
             this.pendingCode = null;
@@ -137,6 +163,10 @@ public class CtrlMorse implements Initializable {
         }
     }
 
+    
+    /** 
+     * @throws IOException
+     */
     //opens a dialog box to choose a file to immediately open in the interface
     public void onClickOpenFileChooser() throws IOException{
         FileChooser fc = new FileChooser();
@@ -152,6 +182,10 @@ public class CtrlMorse implements Initializable {
         }
     }
 
+    
+    /** 
+     * @throws IOException
+     */
     //opens a dialog box to add a code to the morse code when a character is entered and is not recognised
     public void onClickAddCode() throws IOException{
         Optional<Pair<String,String>> result = CtrlDialogAddCode.getDialog(this.pendingCode);
@@ -170,18 +204,31 @@ public class CtrlMorse implements Initializable {
         });
     }
 
+    
+    /** 
+     * @throws IOException
+     */
     public void onClickResetMorseCode() throws IOException{
         MorseActions.resetMorseCode();
         initMorseCodeList();
         onChangeTranslate(this.txtAreaToTranslate.getText());
     }
 
+    
+    /** 
+     * @param toggle
+     */
     //display controls
     private void toggleAddCode(Boolean toggle){
         this.btnAddCode.setDisable(toggle);
         this.btnAddCode.setOpacity(toggle ? 0 : 100);
     }
 
+    
+    /** 
+     * @param e
+     * @param control
+     */
     //handles errors when translating
     private void handleTranslateError(Exception e, Control control){
         this.pendingCode = e.getMessage();
@@ -192,6 +239,12 @@ public class CtrlMorse implements Initializable {
         displayOnZone(result, control, TextTypes.ERROR_T);
     }
 
+    
+    /** 
+     * @param msg
+     * @param control
+     * @param type
+     */
     //displays text in the control zone passed as argument, and applies the color according to the text type
     private void displayOnZone(String msg, Control control, TextTypes type){
         control.setStyle("-fx-text-fill: "+type.getColor()+";");

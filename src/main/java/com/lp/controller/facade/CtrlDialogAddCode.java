@@ -17,12 +17,23 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
 public class CtrlDialogAddCode {
+    
+    /** 
+     * @param field
+     * @param pendingCode
+     */
     //inits the field passed as argument with the code to add a translation for
     private static void initFields(TextField field, String pendingCode){
         field.setText(pendingCode);
         field.setEditable(false);
     }
 
+    
+    /** 
+     * @param dialog
+     * @param saveCodeBtn
+     * @param type
+     */
     //inits a node
     private static void initNode(TextField field, Dialog<Pair<String,String>> dialog, ButtonType saveCodeBtn, String type){
         Node saveCode = dialog.getDialogPane().lookupButton(saveCodeBtn);
@@ -40,6 +51,13 @@ public class CtrlDialogAddCode {
         });
     }
 
+    
+    /** 
+     * @param type
+     * @param newValue
+     * @return boolean
+     * @throws IOException
+     */
     //validates morse inputs to verify it is indeed correct 
     private static boolean validateInputMorse(String type, String newValue) throws IOException{
         return newValue.trim().isEmpty() //checks the value is not null
@@ -47,6 +65,13 @@ public class CtrlDialogAddCode {
         || Reader.getCodes().deCode(newValue) != ""; // checks that the new code doesn't already exists in the code list
     }
 
+    
+    /** 
+     * @param type
+     * @param newValue
+     * @return boolean
+     * @throws IOException
+     */
     //validates letter inputs to verify it is indeed correct
     private static boolean validateInputLetter(String type, String newValue) throws IOException{
         return newValue.trim().isEmpty() 
@@ -56,6 +81,12 @@ public class CtrlDialogAddCode {
         || Reader.getCodes().isIn(newValue.toUpperCase()) != "(/)"; //checks the new letter isn't already present in the morse code
     }
 
+    
+    /** 
+     * @param pendingCode
+     * @return Optional<Pair<String, String>>
+     * @throws IOException
+     */
     // function used on click of the 'Add Code' button, it opens a dialog box 
     // with 2 fields to fill, 'Letter' and 'Code' to add on the Morse list
 
